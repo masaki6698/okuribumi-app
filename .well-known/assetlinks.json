@@ -1,0 +1,15 @@
+[
+  {
+    "relation": [
+      "delegate_permission/common.handle_all_urls",
+      "delegate_permission/common.get_login_creds"
+    ],
+    "target": {
+      "namespace": "android_app",
+      "package_name": "app.lastmail.client",
+      "sha256_cert_fingerprints": [
+        "00:BD:84:B3:A2:72:90:6D:8E:80:88:9A:24:32:35:16:59:8A:BC:3A:82:7B:6C:BD:0E:D4:A8:2D:78:7C:18:51"
+      ]
+    }
+  }
+]

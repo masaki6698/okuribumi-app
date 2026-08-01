@@ -1,0 +1,149 @@
+<!doctype html>
+<html lang="ja">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="icon" type="image/svg+xml" href="/favicon.svg">
+
+<meta name="robots" content="noindex">
+<meta name="referrer" content="no-referrer">
+<title>メッセージの開封 — さいごの一通（贈り文）</title>
+<meta name="description" content="さいごの一通（贈り文）— メッセージの開封には公式アプリが必要です。アプリ未導入の方向けのご案内。">
+<style>
+  :root{--bg:#FFFFFF;--paper:#F6F4EE;--ink:#2A2926;--muted:#77736A;--green:#2F6D5A;--line:#E5E2DA;--card:#FFFFFF}
+  @media(prefers-color-scheme:dark){:root{--bg:#161512;--paper:#161512;--ink:#ECEAE4;--muted:#A19D93;--green:#84B3A1;--line:#3A3833;--card:#232219}}
+  *{box-sizing:border-box;margin:0}
+  /* 日本語の行折りを文節単位に（BudouX）。非対応ブラウザでは無視され従来どおり。 */
+  p,li,dd,dt,figcaption{word-break:auto-phrase}
+  body{background:var(--bg);color:var(--ink);line-height:1.9;
+    font-family:"Hiragino Sans","Noto Sans JP",system-ui,sans-serif;padding:3rem 1.25rem 5rem}
+  main{max-width:40rem;margin:0 auto}
+  h1{font-family:"Hiragino Mincho ProN","Yu Mincho","Noto Serif JP",serif;font-weight:600;
+    font-size:1.85rem;letter-spacing:.04em;margin-bottom:.3rem}
+  h1 small{display:block;font-size:.82rem;font-weight:400;color:var(--muted);letter-spacing:.1em;margin-top:.3rem}
+  h2{font-family:"Hiragino Mincho ProN","Yu Mincho","Noto Serif JP",serif;font-weight:600;
+    font-size:1.3rem;line-height:1.5;margin:2.6rem 0 .7rem;padding-left:.65rem;border-left:4px solid var(--green)}
+  p{margin:.5rem 0}
+  a{color:var(--green)}
+  .lead{color:var(--muted);font-size:.95rem;margin:1rem 0 2rem}
+  .card{background:var(--card);border:1px solid var(--line);border-radius:14px;box-shadow:0 1px 2px rgba(42,41,38,.04),0 10px 26px rgba(42,41,38,.06);padding:1.2rem 1.4rem;margin:1rem 0}
+  .card strong{color:var(--green)}
+  ul{padding-left:1.2rem}li{margin:.3rem 0}
+  ol.steps{padding-left:1.2rem}
+  ol.steps li{margin:.7rem 0}
+  .note{color:var(--muted);font-size:.86rem}
+  .btn{display:inline-block;width:100%;text-align:center;background:var(--green);color:#fff;
+    border:none;border-radius:10px;padding:.85rem 1rem;font-size:.98rem;font-weight:600;
+    text-decoration:none;cursor:pointer;box-sizing:border-box}
+  .btn:active{opacity:.85}
+  .btn-outline{display:inline-block;width:100%;text-align:center;background:transparent;color:var(--green);
+    border:1px solid var(--green);border-radius:10px;padding:.75rem 1rem;font-size:.92rem;font-weight:600;
+    text-decoration:none;cursor:pointer;box-sizing:border-box;margin-top:.6rem}
+  .btn-outline:active{opacity:.8}
+  code.token{display:block;font-family:ui-monospace,SFMono-Regular,Menlo,Consolas,monospace;
+    font-size:.82rem;word-break:break-all;white-space:pre-wrap;background:#FFFFFF;
+    border:1px solid var(--line);border-radius:8px;padding:.8rem .9rem;margin:.7rem 0;color:var(--ink);
+    user-select:all}
+  .copy-status{font-size:.82rem;color:var(--green);min-height:1.2em;margin-top:.4rem}
+  #generic-guidance{display:none}
+  footer{border-top:1px solid var(--line);margin-top:3rem;padding-top:1.4rem;color:var(--muted);font-size:.82rem}
+</style>
+</head>
+<body>
+<main>
+  <h1>メッセージの開封<small>OKURIBUMI — さいごの一通（贈り文）</small></h1>
+  <p class="lead">このページは、公式アプリ「さいごの一通（贈り文）」でリンクを開けなかった方へのご案内です。大切な方があなたに宛てて遺されたメッセージは、公式アプリで静かにお受け取りいただけます。</p>
+
+  <div class="card">
+    <h2 style="margin-top:0">ご案内の手順</h2>
+    <ol class="steps">
+      <li>下記よりアプリをインストールしてください。</li>
+      <li>インストール後、お手元のメールにあるこのリンクを<strong>もう一度開いて</strong>ください。今度はアプリが直接開きます。</li>
+      <li>それでも開かない場合は、下の「アプリで開く」ボタンをお試しください。うまくいかないときは、下に表示されるコードをアプリに貼り付けてください。</li>
+    </ol>
+  </div>
+
+  <div class="card" id="app-store-links">
+    <p><strong>①アプリの入手</strong></p>
+    <p class="note">アプリの配信ページは準備中です。<!-- TODO: ストア公開後にGoogle Play/App Storeリンクを挿入 --></p>
+  </div>
+
+  <div class="card" id="app-open-section" style="display:none">
+    <p><strong>②アプリで開く</strong></p>
+    <p class="note">インストール済みの場合は、こちらのボタンからアプリを直接開けます。</p>
+    <a class="btn" id="app-open-btn" href="#">アプリで開く</a>
+  </div>
+
+  <div class="card" id="code-section" style="display:none">
+    <p><strong>③開示コードを貼り付ける</strong></p>
+    <p class="note">アプリのログイン画面下部にある「メッセージを開封」を開き、「開示コード」欄に下記のコードを貼り付けてください。</p>
+    <code class="token" id="token-display"></code>
+    <button class="btn-outline" id="copy-btn" type="button">コードをコピー</button>
+    <p class="copy-status" id="copy-status" aria-live="polite"></p>
+  </div>
+
+  <div class="card" id="generic-guidance">
+    <p class="note">リンクにお心当たりの情報が見つかりませんでした。お手元のメールに記載のリンクを、そのままお使いください。</p>
+  </div>
+
+  <p>内容はアプリの中でのみ復号され、宛先に選ばれたご本人のほかは、当社を含めて誰にも読むことができません。</p>
+
+  <h2>このメールに心当たりがない方へ</h2>
+  <p><a href="/about/">サービスのご説明</a>をご覧ください。</p>
+
+  <div class="card">
+    <p class="note">当サービスが、メールやWebページでパスワードやコードの入力をお願いすることはありません。このページはコードを<strong>表示するだけ</strong>で、入力をお願いすることはありません。</p>
+  </div>
+
+  <footer>
+    <p>さいごの一通（贈り文）／ okuribumi.app<br>
+    お問い合わせは公式アプリの「お問い合わせ」からお願いします。</p>
+  </footer>
+</main>
+<script>
+(function () {
+  "use strict";
+  var params = new URLSearchParams(window.location.search);
+  var token = params.get("token");
+
+  var appOpenSection = document.getElementById("app-open-section");
+  var codeSection = document.getElementById("code-section");
+  var genericGuidance = document.getElementById("generic-guidance");
+
+  if (token) {
+    var appOpenBtn = document.getElementById("app-open-btn");
+    var tokenDisplay = document.getElementById("token-display");
+    var copyBtn = document.getElementById("copy-btn");
+    var copyStatus = document.getElementById("copy-status");
+
+    appOpenBtn.setAttribute("href", "lastmail://disclose?token=" + encodeURIComponent(token));
+    tokenDisplay.textContent = token;
+
+    appOpenSection.style.display = "";
+    codeSection.style.display = "";
+
+    copyBtn.addEventListener("click", function () {
+      function showCopied() {
+        copyStatus.textContent = "コピーしました";
+      }
+      function selectFallback() {
+        var range = document.createRange();
+        range.selectNodeContents(tokenDisplay);
+        var selection = window.getSelection();
+        selection.removeAllRanges();
+        selection.addRange(range);
+        copyStatus.textContent = "コードを選択しました。そのままコピーしてください。";
+      }
+      if (navigator.clipboard && navigator.clipboard.writeText) {
+        navigator.clipboard.writeText(token).then(showCopied, selectFallback);
+      } else {
+        selectFallback();
+      }
+    });
+  } else {
+    genericGuidance.style.display = "";
+  }
+})();
+</script>
+</body>
+</html>

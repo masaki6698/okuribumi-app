@@ -1,0 +1,578 @@
+<!doctype html>
+<html lang="ja">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="icon" type="image/svg+xml" href="/favicon.svg">
+
+<title>しくみ（図解） — さいごの一通（贈り文）</title>
+<meta name="description" content="さいごの一通（贈り文）のしくみを図解で。言葉を預けてから、受け取る人の端末で開封されるまで — 鍵がどこで生まれ、どこにあるのかをご説明します。">
+<style>
+  :root{
+    --paper:#F6F4EE;--ink:#2A2926;--muted:#77736A;--line:#E5E2DA;--card:#FFFFFF;
+    --green:#2F6D5A;--green-hi:#3E8571;--green-dk:#1E4A3C;
+    --terra:#AE5240;--terra-hi:#C56A57;--terra-dk:#7C392C;
+    --gold:#C9A227;--gold-hi:#E0BC4C;--gold-dk:#97771B;
+    --blue:#5E7796;--blue-dk:#41546F;
+    --sheet:#FFFDF8;--sheet-dk:#D9D3C5;
+    --floor:#EAE6DC;--accent:var(--green);--bg:#FFFFFF;--tint:#ECF2EF;--shadow:0 1px 2px rgba(42,41,38,.04),0 10px 26px rgba(42,41,38,.06);
+  }
+  @media(prefers-color-scheme:dark){:root{
+    --paper:#1B1A17;--ink:#ECEAE4;--muted:#A19D93;--line:#3A3833;--card:#232219;
+    --green:#84B3A1;--green-hi:#9FC6B5;--green-dk:#547B6C;
+    --terra:#C08172;--terra-hi:#D19B8E;--terra-dk:#8E5546;
+    --gold:#D3B24C;--gold-hi:#E5CB77;--gold-dk:#A3862F;
+    --blue:#8FA6C4;--blue-dk:#66799A;
+    --sheet:#EFEBE0;--sheet-dk:#B9B2A0;
+    --floor:#2C2B26;--bg:#161512;--tint:#222923;--shadow:0 1px 2px rgba(0,0,0,.3),0 10px 26px rgba(0,0,0,.25);
+  }}
+  :root[data-theme="dark"]{
+    --paper:#1B1A17;--ink:#ECEAE4;--muted:#A19D93;--line:#3A3833;--card:#232219;
+    --green:#84B3A1;--green-hi:#9FC6B5;--green-dk:#547B6C;
+    --terra:#C08172;--terra-hi:#D19B8E;--terra-dk:#8E5546;
+    --gold:#D3B24C;--gold-hi:#E5CB77;--gold-dk:#A3862F;
+    --blue:#8FA6C4;--blue-dk:#66799A;
+    --sheet:#EFEBE0;--sheet-dk:#B9B2A0;
+    --floor:#2C2B26;--bg:#161512;--tint:#222923;--shadow:0 1px 2px rgba(0,0,0,.3),0 10px 26px rgba(0,0,0,.25);
+  }
+  :root[data-theme="light"]{
+    --paper:#F6F4EE;--ink:#2A2926;--muted:#77736A;--line:#E5E2DA;--card:#FFFFFF;
+    --green:#2F6D5A;--green-hi:#3E8571;--green-dk:#1E4A3C;
+    --terra:#AE5240;--terra-hi:#C56A57;--terra-dk:#7C392C;
+    --gold:#C9A227;--gold-hi:#E0BC4C;--gold-dk:#97771B;
+    --blue:#5E7796;--blue-dk:#41546F;
+    --sheet:#FFFDF8;--sheet-dk:#D9D3C5;
+    --floor:#EAE6DC;--bg:#FFFFFF;--tint:#ECF2EF;--shadow:0 1px 2px rgba(42,41,38,.04),0 10px 26px rgba(42,41,38,.06);
+  }
+  *{box-sizing:border-box;margin:0}
+  /* 日本語の行折りを文節単位に（BudouX）。非対応ブラウザでは無視され従来どおり。 */
+  p,li,dd,dt,figcaption,summary{word-break:auto-phrase}
+  body{background:var(--bg);color:var(--ink);line-height:1.9;
+    font-family:"Hiragino Sans","Noto Sans JP",system-ui,sans-serif;padding:3rem 1.25rem 5rem}
+  main{max-width:42rem;margin:0 auto}
+  h1,h2{font-family:"Hiragino Mincho ProN","Yu Mincho","Noto Serif JP",serif;font-weight:600;text-wrap:balance}
+  h1{font-size:1.85rem;letter-spacing:.04em;margin-bottom:.3rem}
+  h1 small{display:block;font-size:.82rem;font-weight:400;color:var(--muted);letter-spacing:.1em;margin-top:.3rem}
+  h2{font-size:1.3rem;letter-spacing:.03em;line-height:1.5;margin:3rem 0 1rem;padding-left:.65rem;border-left:4px solid var(--green)}
+  p{margin:.5rem 0}
+  a{color:var(--green)}
+  .lead{color:var(--muted);font-size:.95rem;margin:1rem 0 2rem}
+  .note{color:var(--muted);font-size:.86rem}
+  .card{background:var(--card);border:1px solid var(--line);border-radius:14px;padding:1.2rem 1.4rem;margin:1rem 0}
+  .card strong{color:var(--green)}
+
+  /* 登場人物 */
+  .cast{display:flex;gap:.8rem;margin:1.2rem 0}
+  .cast figure{flex:1;background:var(--card);border:1px solid var(--line);border-radius:14px;
+    padding:1rem .6rem .8rem;text-align:center}
+  .cast svg{width:76px;height:76px}
+  .cast figcaption{font-size:.82rem;margin-top:.4rem}
+  .cast .role{display:block;color:var(--muted);font-size:.74rem}
+
+  /* タイムライン */
+  .phase{font-family:"Hiragino Mincho ProN","Yu Mincho","Noto Serif JP",serif;
+    color:var(--green);font-size:.95rem;letter-spacing:.14em;margin:2.6rem 0 .4rem}
+  ol.flow{list-style:none;padding:0;margin:0;position:relative}
+  ol.flow::before{content:"";position:absolute;left:47px;top:8px;bottom:8px;width:2px;
+    background:var(--line);border-radius:1px}
+  ol.flow li{position:relative;display:flex;gap:1rem;align-items:flex-start;margin:1.1rem 0}
+  .stage{flex:0 0 96px;background:var(--card);border:1px solid var(--line);border-radius:14px;
+    padding:.5rem 0 .3rem;text-align:center;position:relative;z-index:1}
+  .stage svg{width:78px;height:78px;display:block;margin:0 auto}
+  .stepno{position:absolute;top:-8px;left:-8px;width:26px;height:26px;border-radius:50%;
+    background:var(--green);color:var(--card);font-size:.8rem;font-weight:600;
+    display:flex;align-items:center;justify-content:center;font-family:"Hiragino Mincho ProN","Yu Mincho",serif}
+  .flow .txt{flex:1;padding-top:.15rem}
+  .flow h3{font-size:1rem;font-weight:600;margin-bottom:.15rem}
+  .flow p{font-size:.9rem;color:var(--muted);margin:0}
+  .flow p strong{color:var(--ink);font-weight:600}
+  .flow p b.g{color:var(--green);font-weight:600}
+
+  /* 鍵の所在 */
+  .where{display:grid;grid-template-columns:1fr 1fr 1fr;gap:.8rem;margin:1.2rem 0}
+  .where figure{background:var(--card);border:1px solid var(--line);border-radius:14px;
+    padding:1rem .5rem .8rem;text-align:center}
+  .where svg{width:72px;height:72px}
+  .where figcaption{font-size:.8rem;line-height:1.6;margin-top:.4rem}
+  .where .has{display:block;font-size:.74rem;color:var(--green);font-weight:600}
+  .where .hasnot{display:block;font-size:.74rem;color:var(--terra)}
+  @media(max-width:520px){
+    .where{grid-template-columns:1fr}
+    .cast{flex-direction:row}
+  }
+
+  /* FAQ（Qをタップで回答を開閉） */
+  .faq{margin:1rem 0}
+  .faq details{background:var(--card);border:1px solid var(--line);border-radius:14px;
+    margin:.6rem 0;padding:0 1.2rem}
+  .faq summary{cursor:pointer;font-weight:600;padding:.9rem 0;list-style:none;
+    display:flex;gap:.5rem;align-items:baseline}
+  .faq summary::-webkit-details-marker{display:none}
+  .faq summary::before{content:"Q.";color:var(--terra);flex:none;
+    font-family:"Hiragino Mincho ProN","Yu Mincho",serif}
+  .faq summary::after{content:"＋";margin-left:auto;color:var(--muted);font-weight:400;flex:none}
+  .faq details[open] summary::after{content:"−"}
+  .faq details>p{margin:0 0 1rem;font-size:.92rem;color:var(--muted)}
+  .faq details>p strong{color:var(--ink)}
+
+  /* 全幅の帯（セクションごとに背景を切り替え、単調さを断つ） */
+  .band{margin:3rem calc(50% - 50vw) 0;padding:2.6rem calc(50vw - 50%) 2.8rem}
+  .band-paper{background:var(--paper)}
+  .band-tint{background:var(--tint)}
+  .band>h2:first-child,.band>.eyebrow:first-child{margin-top:0}
+  .eyebrow{font-size:.72rem;letter-spacing:.28em;color:var(--green);font-weight:600;margin:0 0 .2rem}
+  .eyebrow+h2{margin-top:.1rem}
+  .card,.stage,.cast figure,.where figure,.faq details{box-shadow:var(--shadow)}
+  .uses{display:grid;grid-template-columns:1fr 1fr 1fr;gap:.8rem;margin:1.2rem 0}
+  .uses figure{background:var(--card);border:1px solid var(--line);border-radius:14px;
+    padding:1rem .8rem .9rem;text-align:center;box-shadow:var(--shadow)}
+  .uses svg{width:72px;height:72px}
+  .uses figcaption{font-size:.82rem;line-height:1.7;margin-top:.4rem}
+  .uses .use-note{display:block;color:var(--muted);font-size:.74rem}
+  @media(max-width:520px){.uses{grid-template-columns:1fr}}
+  /* 注意ボックス（見出し=警告アイコン+強調色、本文=箇条書き） */
+  .attn{background:var(--paper);border:1px solid var(--line);border-radius:14px;
+    padding:1.2rem 1.4rem 1.1rem;margin:1rem 0;box-shadow:var(--shadow)}
+  .attn-head{display:flex;gap:.55rem;align-items:flex-start;color:var(--terra);
+    font-weight:600;line-height:1.7;margin:0}
+  .attn-head svg{flex:none;width:1.2em;height:1.1em;margin-top:.4em}
+  .attn-list{list-style:none;padding:0;margin:.7rem 0 0}
+  .attn-list li{position:relative;padding-left:1.1em;font-size:.92rem;color:var(--muted);margin:.35rem 0}
+  .attn-list li::before{content:"・";position:absolute;left:0;color:var(--ink)}
+  .scene{margin:1.4rem 0;text-align:center}
+  .scene svg{width:100%;max-width:32rem;height:auto}
+  .scene text{font-family:"Hiragino Sans","Noto Sans JP",system-ui,sans-serif}
+  /* 出現アニメーション（reduced-motion では無効） */
+  @media(prefers-reduced-motion:no-preference){
+    .reveal{opacity:0;transform:translateY(10px);transition:opacity .5s ease,transform .5s ease}
+    .reveal.in{opacity:1;transform:none}
+  }
+  footer{border-top:1px solid var(--line);margin-top:3rem;padding-top:1.4rem;color:var(--muted);font-size:.82rem}
+</style>
+</head>
+<body>
+<main>
+  <h1>しくみ（図解）<small>OKURIBUMI — さいごの一通（贈り文）</small></h1>
+  <p class="lead">言葉を預けてから、受け取る人の手もとで開封されるまで。<strong>鍵がどこで生まれて、どこにあるのか</strong>がこのサービスの芯です。図でご覧ください。</p>
+
+  <!-- ============ SVG 部品定義（2.5D風アイコン） ============ -->
+  <svg width="0" height="0" style="position:absolute" aria-hidden="true">
+    <defs>
+      <!-- 床の座布団 -->
+      <g id="floor"><ellipse cx="50" cy="86" rx="34" ry="9" fill="var(--floor)"/></g>
+      <!-- 遺す人（常緑の装い） -->
+      <g id="p-owner">
+        <path d="M24 84 q0 -24 26 -24 q26 0 26 24 z" fill="var(--green-dk)" transform="translate(5,3)"/>
+        <path d="M24 84 q0 -24 26 -24 q26 0 26 24 z" fill="var(--green)"/>
+        <path d="M50 60 q26 0 26 24 l-14 0 q0 -16 -12 -20 z" fill="var(--green-dk)" opacity=".45"/>
+        <circle cx="50" cy="40" r="17" fill="var(--green-dk)" transform="translate(4,2)"/>
+        <circle cx="50" cy="40" r="17" fill="#EFC9A8"/>
+        <path d="M33 38 a17 17 0 0 1 34 0 l-3 3 q-4 -10 -14 -10 q-10 0 -14 10 z" fill="var(--ink)" opacity=".78"/>
+      </g>
+      <!-- 受け取る人（封蝋色の装い） -->
+      <g id="p-contact">
+        <path d="M24 84 q0 -24 26 -24 q26 0 26 24 z" fill="var(--terra-dk)" transform="translate(5,3)"/>
+        <path d="M24 84 q0 -24 26 -24 q26 0 26 24 z" fill="var(--terra)"/>
+        <path d="M50 60 q26 0 26 24 l-14 0 q0 -16 -12 -20 z" fill="var(--terra-dk)" opacity=".45"/>
+        <circle cx="50" cy="40" r="17" fill="var(--terra-dk)" transform="translate(4,2)"/>
+        <circle cx="50" cy="40" r="17" fill="#E8B58E"/>
+        <path d="M33 40 a17 17 0 0 1 34 -2 l-2 4 q-5 -9 -15 -9 q-9 0 -13 9 z" fill="var(--ink)" opacity=".78"/>
+        <path d="M65 44 q4 8 1 14" stroke="var(--ink)" opacity=".78" stroke-width="5" fill="none" stroke-linecap="round"/>
+      </g>
+      <!-- 受け取る人・後列（装い違い。前列は #p-contact を再利用） -->
+      <g id="p-recv-gold">
+        <path d="M24 84 q0 -24 26 -24 q26 0 26 24 z" fill="var(--gold-dk)" transform="translate(5,3)"/>
+        <path d="M24 84 q0 -24 26 -24 q26 0 26 24 z" fill="var(--gold)"/>
+        <path d="M50 60 q26 0 26 24 l-14 0 q0 -16 -12 -20 z" fill="var(--gold-dk)" opacity=".45"/>
+        <circle cx="50" cy="40" r="17" fill="var(--gold-dk)" transform="translate(4,2)"/>
+        <circle cx="50" cy="40" r="17" fill="#E5BE96"/>
+        <path d="M33 39 a17 17 0 0 1 34 -1 l-4 4 q-4 -10 -13 -10 q-10 0 -14 9 z" fill="var(--ink)" opacity=".72"/>
+      </g>
+      <g id="p-recv-blue">
+        <path d="M24 84 q0 -24 26 -24 q26 0 26 24 z" fill="var(--blue-dk)" transform="translate(5,3)"/>
+        <path d="M24 84 q0 -24 26 -24 q26 0 26 24 z" fill="var(--blue)"/>
+        <path d="M50 60 q26 0 26 24 l-14 0 q0 -16 -12 -20 z" fill="var(--blue-dk)" opacity=".45"/>
+        <circle cx="50" cy="40" r="17" fill="var(--blue-dk)" transform="translate(4,2)"/>
+        <circle cx="50" cy="40" r="17" fill="#D9A57F"/>
+        <path d="M33 37 a17 17 0 0 1 34 1 l-3 3 q-4 -10 -14 -10 q-10 0 -14 9 z" fill="var(--ink)" opacity=".82"/>
+      </g>
+      <!-- 受け取る人たち（後列2人+前列1人。何人でも選べることを表す） -->
+      <g id="p-contacts">
+        <g transform="translate(1,6) scale(.62)"><use href="#p-recv-gold"/></g>
+        <g transform="translate(37,6) scale(.62)"><use href="#p-recv-blue"/></g>
+        <g transform="translate(9,16) scale(.82)"><use href="#p-contact"/></g>
+      </g>
+      <!-- 封緘された手紙 -->
+      <g id="i-letter">
+        <rect x="22" y="34" width="56" height="40" rx="4" fill="var(--sheet-dk)" transform="translate(6,4)"/>
+        <rect x="22" y="34" width="56" height="40" rx="4" fill="var(--sheet)"/>
+        <path d="M22 38 l28 20 l28 -20 l0 -2 a4 4 0 0 0 -4 -4 l-48 0 a4 4 0 0 0 -4 4 z" fill="var(--sheet-dk)" opacity=".55"/>
+        <circle cx="50" cy="56" r="9" fill="var(--terra-dk)" transform="translate(2,2)"/>
+        <circle cx="50" cy="56" r="9" fill="var(--terra)"/>
+        <circle cx="50" cy="56" r="4.5" fill="var(--terra-hi)"/>
+      </g>
+      <!-- スマホ（素体） -->
+      <g id="i-phone">
+        <rect x="30" y="18" width="40" height="64" rx="8" fill="var(--ink)" opacity=".82" transform="translate(6,4)"/>
+        <rect x="30" y="18" width="40" height="64" rx="8" fill="var(--ink)"/>
+        <rect x="34" y="24" width="32" height="52" rx="4" fill="var(--sheet)"/>
+      </g>
+      <!-- QRつきスマホ -->
+      <g id="i-qr">
+        <use href="#i-phone"/>
+        <g fill="var(--ink)">
+          <rect x="38" y="30" width="9" height="9"/><rect x="53" y="30" width="9" height="9"/>
+          <rect x="38" y="45" width="9" height="9"/>
+          <rect x="40" y="32" width="5" height="5" fill="var(--sheet)"/>
+          <rect x="55" y="32" width="5" height="5" fill="var(--sheet)"/>
+          <rect x="40" y="47" width="5" height="5" fill="var(--sheet)"/>
+          <rect x="53" y="45" width="4" height="4"/><rect x="58" y="50" width="4" height="4"/>
+          <rect x="38" y="60" width="24" height="4" opacity=".55"/>
+          <rect x="38" y="67" width="16" height="4" opacity=".35"/>
+        </g>
+      </g>
+      <!-- 鍵 -->
+      <g id="i-key">
+        <g transform="translate(4,3)" opacity=".9">
+          <circle cx="38" cy="42" r="12" fill="none" stroke="var(--gold-dk)" stroke-width="8"/>
+          <path d="M47 51 l22 22 M62 66 l7 -7 M55 59 l6 -6" stroke="var(--gold-dk)" stroke-width="8" stroke-linecap="round" fill="none"/>
+        </g>
+        <circle cx="38" cy="42" r="12" fill="none" stroke="var(--gold)" stroke-width="8"/>
+        <path d="M47 51 l22 22 M62 66 l7 -7 M55 59 l6 -6" stroke="var(--gold)" stroke-width="8" stroke-linecap="round" fill="none"/>
+        <circle cx="34" cy="38" r="4" fill="var(--gold-hi)"/>
+      </g>
+      <!-- 鍵が生まれるスマホ -->
+      <g id="i-keyphone">
+        <use href="#i-phone"/>
+        <g transform="translate(14,-6) scale(.72)"><use href="#i-key"/></g>
+      </g>
+      <!-- チェックインボタン -->
+      <g id="i-checkin">
+        <circle cx="50" cy="50" r="28" fill="var(--green-dk)" transform="translate(5,4)"/>
+        <circle cx="50" cy="50" r="28" fill="var(--green)"/>
+        <circle cx="50" cy="50" r="21" fill="var(--green-hi)"/>
+        <path d="M39 51 l8 8 l15 -17" stroke="var(--sheet)" stroke-width="7" fill="none" stroke-linecap="round" stroke-linejoin="round"/>
+      </g>
+      <!-- 届くお知らせ -->
+      <g id="i-send">
+        <g transform="rotate(-8 50 54)">
+          <rect x="24" y="38" width="52" height="36" rx="4" fill="var(--green-dk)" transform="translate(6,4)"/>
+          <rect x="24" y="38" width="52" height="36" rx="4" fill="var(--green)"/>
+          <path d="M24 42 l26 18 l26 -18 l0 -2 a4 4 0 0 0 -4 -4 l-44 0 a4 4 0 0 0 -4 4 z" fill="var(--green-hi)"/>
+        </g>
+        <g stroke="var(--muted)" stroke-width="4" stroke-linecap="round">
+          <path d="M14 34 l10 0"/><path d="M8 46 l10 0"/><path d="M16 58 l8 0"/>
+        </g>
+      </g>
+      <!-- 開封 -->
+      <g id="i-open">
+        <use href="#i-phone"/>
+        <g transform="translate(24,4) scale(.62)"><use href="#i-letter"/></g>
+        <path d="M50 20 q0 -8 8 -8" stroke="var(--gold)" stroke-width="4" fill="none" stroke-linecap="round" opacity="0"/>
+      </g>
+      <!-- 受け取る人Bと開封するスマホ（楕円図のBと同じ装い） -->
+      <g id="i-open-b">
+        <g transform="translate(-8,27) scale(.66)"><use href="#p-contact"/></g>
+        <g transform="translate(24,16) scale(.8)"><use href="#i-open"/></g>
+      </g>
+      <!-- 金庫（あずかり場所） -->
+      <g id="i-vault">
+        <rect x="22" y="26" width="56" height="52" rx="8" fill="var(--ink)" opacity=".82" transform="translate(6,4)"/>
+        <rect x="22" y="26" width="56" height="52" rx="8" fill="var(--ink)"/>
+        <rect x="28" y="32" width="44" height="40" rx="5" fill="none" stroke="var(--sheet)" stroke-width="2" opacity=".5"/>
+        <circle cx="50" cy="52" r="12" fill="none" stroke="var(--sheet)" stroke-width="4"/>
+        <path d="M50 44 l0 8 l6 4" stroke="var(--sheet)" stroke-width="4" fill="none" stroke-linecap="round"/>
+      </g>
+      <!-- 台帳（線の入った紙+封蝋） -->
+      <g id="i-ledger">
+        <rect x="26" y="20" width="48" height="58" rx="5" fill="var(--sheet-dk)" transform="translate(6,4)"/>
+        <rect x="26" y="20" width="48" height="58" rx="5" fill="var(--sheet)"/>
+        <g stroke="var(--muted)" stroke-width="4" stroke-linecap="round" opacity=".7">
+          <path d="M34 34 h24"/><path d="M34 46 h32"/><path d="M34 58 h32"/>
+        </g>
+        <circle cx="64" cy="68" r="8" fill="var(--terra)"/>
+        <circle cx="64" cy="68" r="3.8" fill="var(--terra-hi)"/>
+      </g>
+      <!-- ありか（地図ピン） -->
+      <g id="i-pin">
+        <path d="M50 82 C36 62 30 52 30 42 a20 20 0 1 1 40 0 c0 10 -6 20 -20 40 z" fill="var(--green-dk)" transform="translate(5,3)"/>
+        <path d="M50 82 C36 62 30 52 30 42 a20 20 0 1 1 40 0 c0 10 -6 20 -20 40 z" fill="var(--green)"/>
+        <circle cx="50" cy="42" r="9" fill="var(--sheet)"/>
+      </g>
+    </defs>
+  </svg>
+
+  <section class="band ">
+  <p class="eyebrow">CAST</p>
+  <h2>登場するのは、ふたりと一か所</h2>
+  <div class="cast reveal">
+    <figure>
+      <svg viewBox="0 0 100 100" role="img" aria-label="遺す人"><use href="#floor"/><use href="#p-owner"/></svg>
+      <figcaption><strong>遺す人</strong><span class="role">言葉を預けるご本人</span></figcaption>
+    </figure>
+    <figure>
+      <svg viewBox="0 0 100 100" role="img" aria-label="受け取る人（複数）"><use href="#floor"/><use href="#p-contacts"/></svg>
+      <figcaption><strong>受け取る人</strong><span class="role">ご本人が選んだ相手（何人でも）</span></figcaption>
+    </figure>
+    <figure>
+      <svg viewBox="0 0 100 100" role="img" aria-label="あずかり金庫"><use href="#floor"/><use href="#i-vault"/></svg>
+      <figcaption><strong>あずかり金庫</strong><span class="role">封をした手紙だけを保管</span></figcaption>
+    </figure>
+  </div>
+
+  </section>
+
+  <section class="band band-paper">
+  <p class="eyebrow">FLOW 01</p>
+  <p class="phase">── 生きているあいだ</p>
+  <ol class="flow">
+    <li class="reveal">
+      <div class="stage"><span class="stepno">1</span>
+        <svg viewBox="0 0 100 100" role="img" aria-label="手紙に封をする"><use href="#floor"/><use href="#i-letter"/></svg>
+      </div>
+      <div class="txt"><h3>言葉を預ける</h3>
+      <p>遺す人がアプリで手紙を書きます。手紙は<strong>書いたその端末の中で封（暗号化）をしてから</strong>金庫へ。金庫にあるのは封筒だけで、<b class="g">中身は誰にも読めません</b>。</p></div>
+    </li>
+    <li class="reveal">
+      <div class="stage"><span class="stepno">2</span>
+        <svg viewBox="0 0 100 100" role="img" aria-label="QRコードで招く"><use href="#floor"/><use href="#i-qr"/></svg>
+      </div>
+      <div class="txt"><h3>受け取る人を招く</h3>
+      <p>メールで招待状を送るか、<strong>会ってQRコードを見せる</strong>か。受け取るかどうかは、相手が自分のアプリの中で選びます。</p></div>
+    </li>
+    <li class="reveal">
+      <div class="stage"><span class="stepno">3</span>
+        <svg viewBox="0 0 100 100" role="img" aria-label="端末の中で鍵が生まれる"><use href="#floor"/><use href="#i-keyphone"/></svg>
+      </div>
+      <div class="txt"><h3>承諾のとき、鍵が生まれる</h3>
+      <p>相手が「受け取ります」と承諾した瞬間、<strong>相手の端末の中で開封用の鍵が生まれます</strong>。この鍵は<b class="g">端末の外に一度も出ません</b>。ここが、このサービスの要です。</p></div>
+    </li>
+    <li class="reveal">
+      <div class="stage"><span class="stepno">4</span>
+        <svg viewBox="0 0 100 100" role="img" aria-label="チェックイン"><use href="#floor"/><use href="#i-checkin"/></svg>
+      </div>
+      <div class="txt"><h3>見守りがはじまる</h3>
+      <p>遺す人は、決めた周期でボタンを一回長押し、「生きています」と応えるだけです。受け取る人には年に一度だけ、受け取れる状態かの確認が届きます。</p></div>
+    </li>
+  </ol>
+
+  </section>
+
+  <section class="band band-tint">
+  <p class="eyebrow">FLOW 02</p>
+  <p class="phase">── もしものとき</p>
+  <ol class="flow">
+    <li class="reveal">
+      <div class="stage"><span class="stepno">5</span>
+        <svg viewBox="0 0 100 100" role="img" aria-label="お知らせが届く"><use href="#floor"/><use href="#i-send"/></svg>
+      </div>
+      <div class="txt"><h3>お知らせが届く</h3>
+      <p>応答が途切れると、リマインド・猶予期間・最終確認と<strong>何段階も確かめたうえで</strong>、受け取る人にメールとアプリ通知が届きます。お知らせ自体には内容は含まれません。</p></div>
+    </li>
+    <li class="reveal">
+      <div class="stage"><span class="stepno">6</span>
+        <svg viewBox="0 0 100 100" role="img" aria-label="開封"><use href="#floor"/><use href="#i-open"/></svg>
+      </div>
+      <div class="txt"><h3>承諾した端末で開封</h3>
+      <p>お知らせの開示コードで封筒を受け取り、<strong>ステップ3で生まれた鍵</strong>で開封します。この鍵を持つ端末だけが開けるので、<b class="g">宛先に選ばれた方のほかは、誰にも読めません</b>。コードだけを手に入れても、開きません。</p></div>
+    </li>
+  </ol>
+
+  </section>
+
+  <section class="band ">
+  <p class="eyebrow">KEYS</p>
+  <h2>鍵は、どこにあるのか</h2>
+  <div class="where reveal">
+    <figure>
+      <svg viewBox="0 0 100 100" role="img" aria-label="遺す人の端末"><use href="#floor"/><use href="#i-letter"/></svg>
+      <figcaption><strong>遺す人の端末</strong><br>手紙に封をする<span class="has">✓ 書ける・封じられる</span></figcaption>
+    </figure>
+    <figure>
+      <svg viewBox="0 0 100 100" role="img" aria-label="あずかり金庫"><use href="#floor"/><use href="#i-vault"/></svg>
+      <figcaption><strong>あずかり金庫</strong><br>封をした封筒だけを保管<span class="hasnot">✕ 開ける鍵を持たない</span></figcaption>
+    </figure>
+    <figure>
+      <svg viewBox="0 0 100 100" role="img" aria-label="受け取る人の端末"><use href="#floor"/><use href="#i-keyphone"/></svg>
+      <figcaption><strong>受け取る人の端末</strong><br>開封の鍵が眠る唯一の場所<span class="has">✓ ここでだけ開く</span></figcaption>
+    </figure>
+  </div>
+  <div class="card">
+    <p class="note">メールやお知らせを万一のぞき見されても、そこにあるのは「封筒の受け取り券」だけ。<strong>開封の鍵は受け取る人の端末にしかない</strong>ため、中身は守られます。</p>
+  </div>
+
+  </section>
+
+  <section class="band band-paper">
+  <p class="eyebrow">NOTICE</p>
+  <h2>開封は、そっと知らされます</h2>
+  <p>受け取る人のどなたかが開封すると、その事実が<strong>ほかの受け取る人全員と、遺した方のメールにも</strong>すぐに知らされます。たとえば受け取る人がBさんとCさんのお二人なら、Bさんが開封したとき、Cさんにも「開封が記録されました」というお知らせが届きます。</p>
+  <figure class="scene reveal">
+    <svg viewBox="0 0 440 200" role="img" aria-label="開封の相互見張り: 亡くなった方からBさんとCさんへ通知が届き、Bさんが開封するとCさんは誰かが開封したことに気づく">
+      <ellipse cx="220" cy="154" rx="206" ry="20" fill="var(--floor)"/>
+      <!-- 遺す人(不幸が起きた側・淡く) -->
+      <g transform="translate(194,-2) scale(.5)" opacity=".5"><use href="#p-owner"/></g>
+      <!-- 通知(矢印・人物の手前で止める) -->
+      <g stroke="var(--green)" stroke-width="2.5" fill="none">
+        <path d="M198 48 Q150 60 138 82" stroke-dasharray="5 5"/>
+        <path d="M138 82 l2 -9 m-2 9 l9 -3" stroke-linecap="round"/>
+        <path d="M242 48 Q292 60 304 82" stroke-dasharray="5 5"/>
+        <path d="M304 82 l-2 -9 m2 9 l-9 -3" stroke-linecap="round"/>
+      </g>
+      <!-- B(左端・やや斜め): 開封 -->
+      <g transform="rotate(-7 70 140)"><g transform="translate(28,66) scale(.8)"><use href="#p-contact"/></g></g>
+      <g transform="translate(70,118) scale(.4) rotate(-7)"><use href="#i-letter"/></g>
+      <!-- C(右端・やや斜め): 気づく -->
+      <g transform="rotate(7 372 140)"><g transform="translate(330,66) scale(.8)"><use href="#p-recv-blue"/></g></g>
+      <!-- 吹き出し(B) -->
+      <g>
+        <rect x="4" y="12" width="118" height="30" rx="10" fill="var(--card)" stroke="var(--line)"/>
+        <path d="M58 42 l6 12 l8 -12 z" fill="var(--card)" stroke="var(--line)"/>
+        <rect x="60" y="40" width="12" height="3" fill="var(--card)"/>
+        <text x="63" y="32" text-anchor="middle" font-size="12.5" fill="var(--ink)">開封しました</text>
+      </g>
+      <!-- 吹き出し(C・2行) -->
+      <g>
+        <rect x="262" y="0" width="174" height="46" rx="10" fill="var(--card)" stroke="var(--line)"/>
+        <path d="M352 46 l6 12 l8 -12 z" fill="var(--card)" stroke="var(--line)"/>
+        <rect x="354" y="44" width="12" height="3" fill="var(--card)"/>
+        <text x="349" y="19" text-anchor="middle" font-size="11.5" fill="var(--ink)">Aさんの安否を確認しなきゃ…</text>
+        <text x="349" y="37" text-anchor="middle" font-size="11.5" fill="var(--ink)">誰かが開封した…！</text>
+      </g>
+    </svg>
+  </figure>
+  <div class="where reveal">
+    <figure>
+      <svg viewBox="0 0 100 100" role="img" aria-label="受け取る人Bが自分の端末で開封"><use href="#floor"/><use href="#i-open-b"/></svg>
+      <figcaption><strong>受け取る人 B</strong><br>自分の端末で開封<span class="has">✓ 開けるのは本人の鍵だけ</span></figcaption>
+    </figure>
+    <figure>
+      <svg viewBox="0 0 100 100" role="img" aria-label="他の受け取る人Cへお知らせ"><use href="#floor"/><use href="#p-recv-blue"/></svg>
+      <figcaption><strong>受け取る人 C</strong><br>「開封が記録されました」と届く<span class="hasnot">✕ 開封した方がどなたかは分からない</span></figcaption>
+    </figure>
+    <figure>
+      <svg viewBox="0 0 100 100" role="img" aria-label="遺した方のメールにも記録"><use href="#floor"/><use href="#i-send"/></svg>
+      <figcaption><strong>遺した方のメール</strong><br>記録として同じお知らせが届く<span class="has">✓ 誤作動なら気づける</span></figcaption>
+    </figure>
+  </div>
+  <div class="card">
+    <p class="note">この仕組みは、<strong>受け取る人同士が互いの見張り役になる</strong>ための設計です。お知らせには<br>「誰が開封したか」は書かれません。内容を開けるのは、承諾した受け取る人ご本人の端末に限られます。万一、身に覚えのない開封のお知らせを受け取ったときは、アプリからご確認・一時停止の申請ができます。遺した方のメールにも届くのは、ご存命中にお知らせが誤って動いた場合、ご本人がいちばん早く気づいて取り消せるようにするためです。</p>
+  </div>
+
+  </section>
+
+  <section class="band">
+  <p class="eyebrow">USES</p>
+  <h2>遺せるのは、手紙だけではありません</h2>
+  <p>金庫に預けられるのは自由な文章です。想いの言葉のほかに、遺された方が困らないための「実務の情報」こそ、このサービスの出番です。</p>
+  <div class="uses reveal">
+    <figure>
+      <svg viewBox="0 0 100 100" role="img" aria-label="想いの手紙"><use href="#floor"/><use href="#i-letter"/></svg>
+      <figcaption><strong>想いの手紙</strong><span class="use-note">伝えそびれた言葉を、あなたの言葉のまま</span></figcaption>
+    </figure>
+    <figure>
+      <svg viewBox="0 0 100 100" role="img" aria-label="サブスク・支払いの台帳"><use href="#floor"/><use href="#i-ledger"/></svg>
+      <figcaption><strong>サブスク・支払いの台帳</strong><span class="use-note">契約中のサービスと解約先の一覧。アプリにひな形があります</span></figcaption>
+    </figure>
+    <figure>
+      <svg viewBox="0 0 100 100" role="img" aria-label="大切なもののありか"><use href="#floor"/><use href="#i-pin"/></svg>
+      <figcaption><strong>大切なもののありか</strong><span class="use-note">口座や保険の「存在と場所」、家の中の大事な物のありか</span></figcaption>
+    </figure>
+  </div>
+  <div class="card">
+    <p class="note">銀行口座や保険は、<strong>存在と場所さえ伝われば</strong>、遺されたご家族が相続の正規の手続きで受け取れます。暗証番号やパスワードを書き残す必要はありません。</p>
+  </div>
+  </section>
+
+  <section class="band band-tint">
+  <p class="eyebrow">POLICY</p>
+  <h2>パスワードについての方針</h2>
+  <div class="attn">
+    <p class="attn-head"><svg viewBox="0 0 24 22" aria-hidden="true"><path d="M13.7 1.8c-.76-1.3-2.64-1.3-3.4 0L.9 18.1c-.77 1.33.19 3 1.7 3h18.8c1.51 0 2.47-1.67 1.7-3z" fill="var(--terra)"/><rect x="10.9" y="7" width="2.2" height="7.2" rx="1.1" fill="var(--card)"/><circle cx="12" cy="17.1" r="1.4" fill="var(--card)"/></svg>GoogleやAppleなど、他社アカウントのパスワードを書き残すことはおすすめしていません</p>
+    <ul class="attn-list">
+      <li>多くのサービスの規約は、ご家族であってもパスワードの共有を認めていません</li>
+      <li>遺された方がそのままログインする行為は、法律（不正アクセス禁止法）に触れるおそれがあります</li>
+      <li>二段階認証が主流のいま、パスワードだけでは開けないことがほとんどです</li>
+    </ul>
+  </div>
+  <p><strong>代わりにおすすめする方法</strong> — 大手サービスには、公式の「もしものときの手続き」があります。</p>
+  <ul>
+    <li><strong>Google</strong>：「アカウント無効化管理ツール」— 一定期間の未利用で、指定した相手にデータを引き継ぐ公式のしくみ</li>
+    <li><strong>Apple</strong>：「故人アカウント管理連絡先（デジタル遺産）」— あらかじめ指定した相手が、正規の手続きでアクセスできるしくみ</li>
+  </ul>
+  <p>これらを生前に設定したうえで、手紙には<strong>「設定してあること」と「手続きの場所」</strong>を書き残すのが、確実で安全な方法です。</p>
+  <p class="note">※ お預かりする内容は暗号化されており、私たちには見えません。そのため記載内容を技術的に制限することはありませんが、上記は本サービスの方針としてお願いしているものです。<br>
+  ※ ご自宅のNASや金庫の暗証番号など、公式の手続きが存在しないご自身の持ち物については、この限りではありません。</p>
+  </section>
+
+  <section class="band ">
+  <p class="eyebrow">Q&A</p>
+  <h2>よくあるご質問 — 機種変更・端末の紛失</h2>
+  <div class="faq">
+    <details>
+      <summary>受け取る人が機種変更をしたら、鍵はどうなりますか？</summary>
+      <p>鍵は端末の外に出ないため、古い端末とともに失われます。遺す人が、ご存命の間であれば、<strong>もう一度メールまたはQRにて招待し、承諾し直すだけ</strong>で、新しい端末に新しい鍵が生まれます。年に一度の確認は、これを忘れないための仕組みでもあります。</p>
+    </details>
+    <details>
+      <summary>遺した方がすでに亡くなっていて、招待し直せないときは？</summary>
+      <p>そのときのために<strong>「再登録の申請」</strong>を用意しております。受け取る人が新しい端末から申請すると、<strong>待機期間（数日〜2週間）</strong>を置いたのち、新しい鍵が有効になります。待機のあいだは、他の受け取る人などへ「再登録の申請がありました」とお知らせが届きます。心当たりのない申請は誰でも一時停止でき、なりすましを防ぎながら、正しい受け取る人には新しい鍵で開封できる道を残します。</p>
+    </details>
+    <details>
+      <summary>申請すれば誰でも受け取れてしまうのでは？</summary>
+      <p>いいえ。申請には<strong>受け取る人ご本人のメールが受け取れること</strong>が前提で、さらに待機期間・周囲へのお知らせ・一時停止・回数の制限を重ねています。急いで開けようとする不正な申請ほど、この時間的制約にて防御する設計です。</p>
+    </details>
+  </div>
+
+  </section>
+
+  <section class="band band-paper">
+  <p class="eyebrow">PLAN</p>
+  <h2>プランと解約のこと</h2>
+  <div class="card">
+    <p><strong>無料プラン</strong> — 自分のための金庫と見守り。手紙を書き、暗号のまま預け、チェックインで見守りを試せます。ただし<strong>どなたにも送られません</strong>。応答が途切れ切った場合も、お知らせが届くのはご自身だけです（予行演習）。</p>
+  </div>
+  <div class="card">
+    <p><strong>スタンダードプラン</strong> — 受け取る人への招待から、もしものときのお届けまでのすべて。年額1,980円（自動更新）または、5年一括買い切り型4,980円（自動更新なし）を予定しています。</p>
+  </div>
+  <div class="faq">
+    <details>
+      <summary>解約したら、預けた手紙はどうなりますか？</summary>
+      <p><strong>消えません。</strong>手紙・受け取る人の承諾・設定はそのまま残り、お届けの機能だけがお休みになります（無料プランに戻ります）。<strong>同じアカウントでいつでも再開でき</strong>、承諾のやり直しも不要です。なお、アカウントそのものを削除した場合は別で、預けたものはすべて消去されます。</p>
+    </details>
+    <details>
+      <summary>亡くなったあと、カードが止まって支払えなくなったら？</summary>
+      <p>ご安心ください。見守りが「応答なし」の確認段階に入った時点で、<strong>お届けの資格を確定（ロック）します</strong>。以後、お支払いが止まってもその回のお届けは最後まで行われます。「亡くなればカードは止まる」ことを前提に設計しています。</p>
+    </details>
+    <details>
+      <summary>解約はどこから？</summary>
+      <p>App Store / Google Play のサブスクリプション管理から、いつでも解約できます。解約後も、お支払い済みの期間が終わるまでは全機能をご利用いただけます。</p>
+    </details>
+  </div>
+
+  </section>
+
+  <div class="card">
+    <p><strong>このページの合言葉</strong> — 「鍵は、承諾したその端末で生まれ、そこから出ない。」これだけ覚えていただければ、あとの仕組みはぜんぶこの一行を守るためにあります。</p>
+  </div>
+
+  <p><a href="/about/">サービスのご説明はこちら</a></p>
+
+  <footer>
+    <p>さいごの一通（贈り文）／ okuribumi.app<br>
+    当サービスが、メールやWebページでパスワードやコードの入力をお願いすることはありません。</p>
+  </footer>
+</main>
+<script>
+(function () {
+  "use strict";
+  if (!("IntersectionObserver" in window)) return;
+  var io = new IntersectionObserver(function (entries) {
+    entries.forEach(function (e) {
+      if (e.isIntersecting) { e.target.classList.add("in"); io.unobserve(e.target); }
+    });
+  }, { threshold: 0.15 });
+  document.querySelectorAll(".reveal").forEach(function (el) { io.observe(el); });
+})();
+</script>
+</body>
+</html>
