@@ -118,6 +118,26 @@
   .cta-big:hover{background:var(--green-hi);transform:translateY(-1px)}
   .cta-big .chev{font-weight:400}
 
+  /* 日常写真バンド（実写+コピー重ね。写真は常に明るいため文字色は固定値） */
+  .photo-band{margin:3rem calc(50% - 50vw) 0;position:relative;min-height:430px;
+    display:flex;align-items:center;
+    background:url('/assets/mimamori.jpg') 65% center/cover no-repeat}
+  .photo-band::before{content:"";position:absolute;inset:0;
+    background:linear-gradient(90deg, rgba(246,244,238,.92) 0%, rgba(246,244,238,.55) 42%, rgba(246,244,238,0) 68%)}
+  .photo-copy{position:relative;max-width:42rem;margin:0 auto;width:100%;
+    padding:2.6rem calc(50vw - 50%);padding-left:calc(50vw - 50%)}
+  .photo-copy .eyebrow{color:#2F6D5A}
+  .photo-copy h2{border:none;padding:0;margin:0 0 .7rem;color:#1E4A3C;
+    font-size:1.7rem;line-height:1.7;letter-spacing:.05em;
+    text-shadow:0 1px 8px rgba(246,244,238,.8)}
+  .photo-copy p{color:#4A463D;font-size:.92rem;max-width:21rem;
+    text-shadow:0 1px 6px rgba(246,244,238,.9)}
+  @media(max-width:640px){
+    .photo-band{min-height:0;background-position:72% center;align-items:flex-end}
+    .photo-band::before{background:linear-gradient(180deg, rgba(246,244,238,.25) 0%, rgba(246,244,238,.55) 45%, rgba(246,244,238,.94) 78%)}
+    .photo-copy{padding-top:13rem;padding-bottom:1.8rem}
+  }
+
   footer{border-top:1px solid var(--line);margin-top:0;padding-top:1.6rem;color:var(--muted);font-size:.82rem}
   footer a{margin-right:1rem}
 </style>
@@ -148,6 +168,14 @@
         <p class="contact-note">開封・招待のお手続きは、お手元のメールに記載のリンクからお進みください。</p>
       </div>
     </aside>
+  </section>
+
+  <section class="photo-band" aria-label="窓辺でお茶を飲みながら笑い合う母と娘の写真">
+    <div class="photo-copy">
+      <p class="eyebrow">MIMAMORI</p>
+      <h2>いつもの毎日を、<br>そっと見守る。</h2>
+      <p>変わらない日々のうしろに、静かに控えています。もしものときは、あなたが選んだ人へ、言葉が確かに届くように。</p>
+    </div>
   </section>
 
   <section class="band band-paper" style="margin-top:3rem">
