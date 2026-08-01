@@ -57,9 +57,15 @@
     padding:1.2rem 1.4rem;margin:1rem 0;box-shadow:var(--shadow)}
   .note{color:var(--muted);font-size:.86rem}
 
-  /* ヒーロー: 左=題字、右=「今すぐの方」コンタクトカード */
-  .hero{display:grid;grid-template-columns:1fr 1fr;gap:2rem;align-items:center;padding-top:3.4rem}
-  @media(max-width:640px){.hero{grid-template-columns:1fr;gap:1.6rem}}
+  /* ヒーロー: 左=題字、右=「今すぐの方」コンタクトカード。
+     下の写真バンドが全幅のため、ヒーローも全幅化して左右へ広げる（内側最大62rem） */
+  .hero{margin:0 calc(50% - 50vw);padding:3.4rem max(1.25rem, calc(50vw - 31rem)) 0;
+    display:grid;grid-template-columns:1.15fr 1fr;gap:3rem;align-items:center}
+  .hero .contact{justify-self:end;width:100%;max-width:24rem}
+  @media(max-width:720px){
+    .hero{grid-template-columns:1fr;gap:1.6rem}
+    .hero .contact{justify-self:stretch;max-width:none}
+  }
   .hero-title{font-size:2.2rem;letter-spacing:.08em;line-height:1.5}
   .hero-title small{display:block;font-size:.85rem;font-weight:400;color:var(--muted);letter-spacing:.14em;margin-top:.6rem}
   .hero-lead{color:var(--muted);font-size:.95rem;margin:1.1rem 0 1.4rem}
@@ -172,7 +178,6 @@
 
   <section class="photo-band" aria-label="窓辺でお茶を飲みながら笑い合う母と娘の写真">
     <div class="photo-copy">
-      <p class="eyebrow">MIMAMORI</p>
       <h2>いつもの毎日を、<br>そっと見守る。</h2>
       <p>変わらない日々のうしろに、静かに控えています。もしものときは、あなたが選んだ人へ、言葉が確かに届くように。</p>
     </div>
