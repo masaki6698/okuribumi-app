@@ -174,9 +174,10 @@
 
   /* ページイントロ（写真→フェードで本文へ。セッション1回・reduced-motionはJSでスキップ） */
   .intro{position:fixed;inset:0;z-index:60;display:none;overflow:hidden;pointer-events:none}
-  .intro.on{display:block;animation:introFade 2.2s ease forwards}
-  .intro-bg{position:absolute;inset:0;background:url('/assets/kaku.jpg') center/cover no-repeat;
-    animation:introZoom 2.2s ease forwards}
+  .intro.on{display:block;background:var(--paper)}
+  .intro.go{animation:introFade 2.6s ease forwards}
+  .intro-bg{position:absolute;inset:0;background:url('/assets/kaku.jpg') center/cover no-repeat;opacity:0}
+  .intro.go .intro-bg{animation:introZoom 2.6s ease forwards}
   .intro-bg::after{content:"";position:absolute;inset:0;
     background:linear-gradient(100deg, rgba(24,36,31,.58) 0%, rgba(24,36,31,.3) 42%, rgba(24,36,31,.04) 68%)}
   .intro-copy{position:absolute;inset:0;display:flex;align-items:center;justify-content:flex-start;
@@ -184,12 +185,19 @@
     font-family:"Hiragino Mincho ProN","Yu Mincho","Noto Serif JP",serif;font-weight:600;
     font-size:clamp(1.7rem, 4vw, 2.4rem);letter-spacing:.14em;line-height:1.9;color:#FFFDF8;
     text-shadow:0 2px 18px rgba(16,22,19,.65),0 0 3px rgba(16,22,19,.5);
-    opacity:0;animation:introCopy 2.2s ease forwards}
-  @keyframes introFade{0%,62%{opacity:1}100%{opacity:0}}
-  @keyframes introZoom{0%{transform:scale(1.06)}100%{transform:scale(1)}}
-  @keyframes introCopy{0%{opacity:0;transform:translateY(8px)}20%,58%{opacity:1;transform:none}100%{opacity:0}}
-  html.intro-on main{animation:pageRise .9s ease 1.25s both}
+    opacity:0}
+  .intro.go .intro-copy{animation:introCopy 2.6s ease forwards}
+  @keyframes introFade{0%,66%{opacity:1}100%{opacity:0}}
+  @keyframes introZoom{0%{opacity:0;transform:scale(1.07)}15%{opacity:1;transform:scale(1.055)}100%{opacity:1;transform:scale(1)}}
+  @keyframes introCopy{0%{opacity:0;transform:translateY(8px)}22%,62%{opacity:1;transform:none}100%{opacity:0}}
+  html.intro-on main{opacity:0}
+  html.intro-go main{opacity:1;animation:pageRise .9s ease 1.55s both}
   @keyframes pageRise{from{opacity:0;transform:translateY(10px)}to{opacity:1;transform:none}}
+  @media(max-width:640px){
+    .intro-bg{background-position:72% center}
+    .intro-copy{align-items:flex-end;padding:0 8vw 15vh}
+    .intro-bg::after{background:linear-gradient(180deg, rgba(24,36,31,.08) 35%, rgba(24,36,31,.66) 100%)}
+  }
 
   /* ヘッダナビ（3ページ共通。現在地は緑下線） */
   .siteheader{position:sticky;top:0;z-index:50;margin:0 calc(50% - 50vw);
@@ -208,6 +216,7 @@
   .sitenav a[aria-current="page"]{color:var(--green);font-weight:600;border-bottom-color:var(--green)}
   @media(max-width:520px){.brand span{display:none}}
 </style>
+<script defer src="/assets/budoux.min.js"></script>
 </head>
 <body>
 <div class="intro" id="intro" aria-hidden="true">
@@ -220,10 +229,20 @@
     var k='intro:'+location.pathname;
     if(matchMedia('(prefers-reduced-motion: reduce)').matches||sessionStorage.getItem(k))return;
     sessionStorage.setItem(k,'1');
-    document.documentElement.classList.add('intro-on');
-    var el=document.getElementById('intro');
+    var d=document.documentElement, el=document.getElementById('intro');
+    d.classList.add('intro-on');
     el.classList.add('on');
-    el.addEventListener('animationend',function(e){if(e.target===el){el.remove();document.documentElement.classList.remove('intro-on');}});
+    var started=false;
+    function go(){
+      if(started)return; started=true;
+      d.classList.add('intro-go'); el.classList.add('go');
+      el.addEventListener('animationend',function(e){
+        if(e.target===el){el.remove();d.classList.remove('intro-on');d.classList.remove('intro-go');}
+      });
+    }
+    var im=new Image(); im.src='/assets/kaku.jpg';
+    if(im.decode){im.decode().then(go,go);}else{im.onload=go;im.onerror=go;}
+    setTimeout(go,900);
   }catch(e){}
 })();
 </script>
