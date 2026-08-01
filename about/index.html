@@ -93,6 +93,25 @@
   .faq details>p{margin:0 0 1rem;font-size:.92rem;color:var(--muted)}
   .faq details>p strong{color:var(--ink)}
 
+  /* 日常写真バンド（実写+コピー重ね。写真は明るいため文字色は固定値=テーマ非依存） */
+  .photo-band{margin:3rem calc(50% - 50vw) 0;position:relative;min-height:380px;
+    display:flex;align-items:center;
+    background:url('/assets/yomu.jpg') 70% center/cover no-repeat}
+  .photo-band::before{content:"";position:absolute;inset:0;
+    background:linear-gradient(90deg, rgba(246,244,238,.9) 0%, rgba(246,244,238,.5) 40%, rgba(246,244,238,0) 65%)}
+  .photo-copy{position:relative;max-width:42rem;margin:0 auto;width:100%;
+    padding:2.4rem calc(50vw - 50%)}
+  .photo-copy h2{border:none;padding:0;margin:0 0 .6rem;color:#1E4A3C;
+    font-size:1.5rem;line-height:1.8;letter-spacing:.05em;
+    text-shadow:0 1px 8px rgba(246,244,238,.8)}
+  .photo-copy p{color:#4A463D;font-size:.9rem;max-width:19rem;
+    text-shadow:0 1px 6px rgba(246,244,238,.9)}
+  @media(max-width:640px){
+    .photo-band{min-height:0;background-position:74% center;align-items:flex-end}
+    .photo-band::before{background:linear-gradient(180deg, rgba(246,244,238,.2) 0%, rgba(246,244,238,.5) 45%, rgba(246,244,238,.93) 78%)}
+    .photo-copy{padding-top:11rem;padding-bottom:1.6rem}
+  }
+
   footer{border-top:1px solid var(--line);margin-top:3rem;padding-top:1.4rem;color:var(--muted);font-size:.82rem}
 </style>
 </head>
@@ -104,6 +123,13 @@
   <div class="card">
     <p><strong>さいごの一通～贈り文～</strong>は、大切な方が「いつか渡したい言葉や情報」をあらかじめお預かりし、ご本人が選んだ相手へ、しかるべきときにお届けするサービスです。</p>
   </div>
+
+  <section class="photo-band" aria-label="窓辺で手紙を静かに読む女性の写真">
+    <div class="photo-copy">
+      <h2>あなたに宛てて、<br>選ばれた一通です。</h2>
+      <p>大切な方が、あなたを思って託した言葉。急がなくてかまいません。ご自身のペースでお確かめください。</p>
+    </div>
+  </section>
 
   <section class="band band-paper">
   <p class="eyebrow">WHY</p>

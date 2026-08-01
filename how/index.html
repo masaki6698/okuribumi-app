@@ -132,6 +132,24 @@
   .uses figcaption{font-size:.82rem;line-height:1.7;margin-top:.4rem}
   .uses .use-note{display:block;color:var(--muted);font-size:.74rem}
   @media(max-width:520px){.uses{grid-template-columns:1fr}}
+  /* 日常写真バンド（実写+コピー重ね。文字色は写真前提の固定値=テーマ非依存） */
+  .photo-band{margin:3rem calc(50% - 50vw) 0;position:relative;min-height:380px;
+    display:flex;align-items:center;
+    background:url('/assets/kaku.jpg') 72% center/cover no-repeat}
+  .photo-band::before{content:"";position:absolute;inset:0;
+    background:linear-gradient(90deg, rgba(246,244,238,.88) 0%, rgba(246,244,238,.45) 40%, rgba(246,244,238,0) 65%)}
+  .photo-copy{position:relative;max-width:42rem;margin:0 auto;width:100%;
+    padding:2.4rem calc(50vw - 50%)}
+  .photo-copy h2{border:none;padding:0;margin:0 0 .6rem;color:#1E4A3C;
+    font-size:1.5rem;line-height:1.8;letter-spacing:.05em;
+    text-shadow:0 1px 8px rgba(246,244,238,.8)}
+  .photo-copy p{color:#4A463D;font-size:.9rem;max-width:19rem;
+    text-shadow:0 1px 6px rgba(246,244,238,.9)}
+  @media(max-width:640px){
+    .photo-band{min-height:0;background-position:76% center;align-items:flex-end}
+    .photo-band::before{background:linear-gradient(180deg, rgba(246,244,238,.2) 0%, rgba(246,244,238,.5) 45%, rgba(246,244,238,.93) 78%)}
+    .photo-copy{padding-top:11rem;padding-bottom:1.6rem}
+  }
   /* 注意ボックス（見出し=警告アイコン+強調色、本文=箇条書き） */
   .attn{background:var(--paper);border:1px solid var(--line);border-radius:14px;
     padding:1.2rem 1.4rem 1.1rem;margin:1rem 0;box-shadow:var(--shadow)}
@@ -624,6 +642,13 @@
     </details>
   </div>
 
+  </section>
+
+  <section class="photo-band" aria-label="夕方の灯りの下で万年筆の手紙を書く年配の男性の写真">
+    <div class="photo-copy">
+      <h2>しくみのすべては、<br>この一通のために。</h2>
+      <p>暗号も、見守りも、一通の手紙を確かに手渡すための道具です。書きたくなったら、いつでも。</p>
+    </div>
   </section>
 
   <div class="card">
