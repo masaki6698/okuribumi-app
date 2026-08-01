@@ -253,13 +253,16 @@
         <circle cx="50" cy="50" r="21" fill="var(--green-hi)"/>
         <path d="M39 51 l8 8 l15 -17" stroke="var(--sheet)" stroke-width="7" fill="none" stroke-linecap="round" stroke-linejoin="round"/>
       </g>
-      <!-- 届くお知らせ -->
+      <!-- 届くお知らせ（封筒は他の手紙と同じ白基調・緑の通知バッジ付き） -->
       <g id="i-send">
         <g transform="rotate(-8 50 54)">
-          <rect x="24" y="38" width="52" height="36" rx="4" fill="var(--green-dk)" transform="translate(6,4)"/>
-          <rect x="24" y="38" width="52" height="36" rx="4" fill="var(--green)"/>
-          <path d="M24 42 l26 18 l26 -18 l0 -2 a4 4 0 0 0 -4 -4 l-44 0 a4 4 0 0 0 -4 4 z" fill="var(--green-hi)"/>
+          <rect x="24" y="38" width="52" height="36" rx="4" fill="var(--sheet-dk)" transform="translate(6,4)"/>
+          <rect x="24" y="38" width="52" height="36" rx="4" fill="var(--sheet)"/>
+          <path d="M24 42 l26 18 l26 -18 l0 -2 a4 4 0 0 0 -4 -4 l-44 0 a4 4 0 0 0 -4 4 z" fill="var(--sheet-dk)" opacity=".55"/>
         </g>
+        <circle cx="76" cy="34" r="8" fill="var(--green-dk)" transform="translate(2,2)"/>
+        <circle cx="76" cy="34" r="8" fill="var(--green)"/>
+        <circle cx="73.5" cy="31.5" r="2.6" fill="var(--green-hi)"/>
         <g stroke="var(--muted)" stroke-width="4" stroke-linecap="round">
           <path d="M14 34 l10 0"/><path d="M8 46 l10 0"/><path d="M16 58 l8 0"/>
         </g>
@@ -338,14 +341,14 @@
         <svg viewBox="0 0 100 100" role="img" aria-label="QRコードで招く"><use href="#floor"/><use href="#i-qr"/></svg>
       </div>
       <div class="txt"><h3>受け取る人を招く</h3>
-      <p>メールで招待状を送るか、<strong>会ってQRコードを見せる</strong>か。受け取るかどうかは、相手が自分のアプリの中で選びます。</p></div>
+      <p>メールで招待状を送るか、<strong>会ってQRコードを見せる</strong>か。受け取るかどうかは、お相手がご自身のアプリの中で選びます。</p></div>
     </li>
     <li class="reveal">
       <div class="stage"><span class="stepno">3</span>
         <svg viewBox="0 0 100 100" role="img" aria-label="端末の中で鍵が生まれる"><use href="#floor"/><use href="#i-keyphone"/></svg>
       </div>
       <div class="txt"><h3>承諾のとき、鍵が生まれる</h3>
-      <p>相手が「受け取ります」と承諾した瞬間、<strong>相手の端末の中で開封用の鍵が生まれます</strong>。この鍵は<b class="g">端末の外に一度も出ません</b>。ここが、このサービスの要です。</p></div>
+      <p>お相手が「受け取ります」と承諾されたその瞬間、<strong>お相手の端末の中で開封用の鍵が生まれます</strong>。この鍵は<b class="g">端末の外に一度も出ません</b>。ここが、このサービスの要です。</p></div>
     </li>
     <li class="reveal">
       <div class="stage"><span class="stepno">4</span>
@@ -367,14 +370,14 @@
         <svg viewBox="0 0 100 100" role="img" aria-label="お知らせが届く"><use href="#floor"/><use href="#i-send"/></svg>
       </div>
       <div class="txt"><h3>お知らせが届く</h3>
-      <p>応答が途切れると、リマインド・猶予期間・最終確認と<strong>何段階も確かめたうえで</strong>、受け取る人にメールとアプリ通知が届きます。お知らせ自体には内容は含まれません。</p></div>
+      <p>応答が途切れると、リマインド・猶予期間・最終確認と<strong>何段階も確かめたうえで</strong>、受け取る人にメールとアプリ通知が届きます。お知らせ自体に、お手紙の内容は含まれておりません。</p></div>
     </li>
     <li class="reveal">
       <div class="stage"><span class="stepno">6</span>
         <svg viewBox="0 0 100 100" role="img" aria-label="開封"><use href="#floor"/><use href="#i-open"/></svg>
       </div>
       <div class="txt"><h3>承諾した端末で開封</h3>
-      <p>お知らせの開示コードで封筒を受け取り、<strong>ステップ3で生まれた鍵</strong>で開封します。この鍵を持つ端末だけが開けるので、<b class="g">宛先に選ばれた方のほかは、誰にも読めません</b>。コードだけを手に入れても、開きません。</p></div>
+      <p>お知らせの開示コードで封筒を受け取り、<strong>ステップ3で生まれた鍵</strong>で開封します。この鍵を持つ端末だけが開けるので、<b class="g">宛先に選ばれた方のほかは、誰にも読めません</b>。コードだけを手に入れても、開くことはできません。</p></div>
     </li>
   </ol>
 
@@ -456,7 +459,7 @@
     </figure>
   </div>
   <div class="card">
-    <p class="note">この仕組みは、<strong>受け取る人同士が互いの見張り役になる</strong>ための設計です。お知らせには<br>「誰が開封したか」は書かれません。内容を開けるのは、承諾した受け取る人ご本人の端末に限られます。万一、身に覚えのない開封のお知らせを受け取ったときは、アプリからご確認・一時停止の申請ができます。遺した方のメールにも届くのは、ご存命中にお知らせが誤って動いた場合、ご本人がいちばん早く気づいて取り消せるようにするためです。</p>
+    <p class="note">この仕組みは、<strong>受け取る人同士が互いの見張り役になる</strong>ための設計です。お知らせには<br>「誰が開封したか」は記載しておりません。内容を開けるのは、承諾した受け取る人ご本人の端末に限られます。万一、身に覚えのない開封のお知らせをお受け取りになったときは、アプリからご確認・一時停止の申請ができます。遺した方のメールにも届くのは、ご存命中にお知らせが誤って動いた場合、ご本人がいちばん早く気づいて取り消せるようにするためです。</p>
   </div>
 
   </section>
@@ -480,7 +483,7 @@
     </figure>
   </div>
   <div class="card">
-    <p class="note">銀行口座や保険は、<strong>存在と場所さえ伝われば</strong>、遺されたご家族が相続の正規の手続きで受け取れます。暗証番号やパスワードを書き残す必要はありません。</p>
+    <p class="note">銀行口座や保険は、<strong>存在と場所さえ伝われば</strong>、遺されたご家族が相続の正規の手続きでお受け取りいただけます。暗証番号やパスワードを書き残す必要はありません。</p>
   </div>
   </section>
 
@@ -512,7 +515,7 @@
     <p class="attn-head"><svg viewBox="0 0 24 22" aria-hidden="true"><path d="M13.7 1.8c-.76-1.3-2.64-1.3-3.4 0L.9 18.1c-.77 1.33.19 3 1.7 3h18.8c1.51 0 2.47-1.67 1.7-3z" fill="var(--terra)"/><rect x="10.9" y="7" width="2.2" height="7.2" rx="1.1" fill="var(--card)"/><circle cx="12" cy="17.1" r="1.4" fill="var(--card)"/></svg>お預かりする手紙は、法律上の「遺言書」ではありません</p>
     <ul class="attn-list">
       <li>財産の分け方を法的に定める効力はありません。位置づけはエンディングノートに近いものです</li>
-      <li>亡くなられた後の銀行口座は凍結され、暗証番号が分かっても、払い戻しには相続の正規の手続きが必要です</li>
+      <li>亡くなられた後の銀行口座は凍結され、ご家族が暗証番号をご存じでも、払い戻しには相続の正規の手続きが必要です</li>
     </ul>
   </div>
   <p><strong>財産の分け方を法的に残したい場合は、正式な遺言書を</strong>ご用意ください。</p>
