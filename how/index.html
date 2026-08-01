@@ -49,6 +49,9 @@
   *{box-sizing:border-box;margin:0}
   /* 日本語の行折りを文節単位に（BudouX）。非対応ブラウザでは無視され従来どおり。 */
   p,li,dd,dt,figcaption,summary{word-break:auto-phrase}
+  .home{font-size:.8rem;margin:0 0 1.2rem}
+  .home a{color:var(--muted);text-decoration:none}
+  .home a:hover{color:var(--green)}
   body{background:var(--bg);color:var(--ink);line-height:1.9;
     font-family:"Hiragino Sans","Noto Sans JP",system-ui,sans-serif;padding:3rem 1.25rem 5rem}
   main{max-width:42rem;margin:0 auto}
@@ -172,6 +175,7 @@
 </head>
 <body>
 <main>
+  <p class="home"><a href="/">‹ さいごの一通～贈り文～ トップ</a></p>
   <h1>「さいごの一通～贈り文～」のしくみ<small>OKURIBUMI</small></h1>
   <p class="lead">言葉を預けてから、受け取る人の手もとで開封されるまで。<strong>鍵がどこで生まれて、どこにあるのか</strong>がこのサービスの芯です。図でご覧ください。</p>
 
@@ -655,7 +659,7 @@
     <p><strong>このページの合言葉</strong> — 「鍵は、承諾したその端末で生まれ、そこから出ない。」</p>
   </div>
 
-  <p><a href="/about/">サービスのご説明はこちら</a></p>
+  <p><a href="/">トップページ</a> ／ <a href="/about/">サービスのご説明</a></p>
 
   <footer>
     <p>さいごの一通～贈り文～／ okuribumi.app<br>

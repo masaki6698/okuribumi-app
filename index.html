@@ -81,23 +81,24 @@
   .btn-primary:hover{background:var(--green-hi)}
   .btn-ghost{border:1.5px solid var(--green);color:var(--green)}
 
-  .contact{background:var(--card);border:1px solid var(--line);border-radius:16px;overflow:hidden;box-shadow:var(--shadow)}
-  .contact-head{background:var(--green-dk);color:#fff;text-align:center;font-weight:600;
-    font-size:.92rem;padding:.75rem 1rem;letter-spacing:.06em}
-  .contact-body{padding:1rem 1rem 1.1rem;display:grid;gap:.7rem}
-  .contact-main{display:flex;align-items:center;justify-content:space-between;gap:.8rem;
-    background:var(--gold);color:#2A2926;border-radius:12px;padding:.9rem 1.1rem;text-decoration:none;
+  /* 受信者カード: 色帯を使わず、本文と同じ文法（明朝+緑の縦罫+細罫リンク列）で静かに */
+  .contact{background:var(--card);border:1px solid var(--line);border-radius:16px;
+    box-shadow:var(--shadow);padding:1.3rem 1.4rem 1.1rem}
+  .contact-head{font-family:"Hiragino Mincho ProN","Yu Mincho","Noto Serif JP",serif;font-weight:600;
+    font-size:1.02rem;letter-spacing:.04em;line-height:1.6;
+    padding-left:.65rem;border-left:3px solid var(--green);margin:0 0 .5rem}
+  .contact-lead{font-size:.8rem;color:var(--muted);margin:0 0 .9rem}
+  .contact-main{display:block;text-align:center;background:var(--green);color:#fff;
+    border-radius:999px;padding:.75rem 1rem;text-decoration:none;font-weight:600;font-size:.94rem;
     transition:background .12s ease}
-  .contact-main:hover{background:var(--gold-hi)}
-  .contact-main strong{display:block;font-size:.95rem}
-  .contact-main span{display:block;font-size:.76rem;opacity:.78}
-  .contact-main .arrow{flex:none;width:26px;height:26px;border-radius:50%;background:rgba(42,41,38,.16);
-    display:grid;place-items:center;font-weight:700}
-  .contact-sub{display:grid;grid-template-columns:1fr 1fr;gap:.7rem}
-  .contact-sub a{display:block;text-align:center;border:1px solid var(--line);border-radius:12px;
-    padding:.7rem .5rem;text-decoration:none;color:var(--green);font-size:.82rem;font-weight:600;line-height:1.5}
-  .contact-sub a:hover{background:var(--paper)}
-  .contact-note{font-size:.74rem;color:var(--muted);text-align:center;margin:0}
+  .contact-main:hover{background:var(--green-hi)}
+  .contact-sub{margin:1rem 0 0;border-top:1px solid var(--line)}
+  .contact-sub a{display:flex;justify-content:space-between;align-items:center;gap:.6rem;
+    padding:.6rem .1rem;border-bottom:1px solid var(--line);text-decoration:none;
+    color:var(--ink);font-size:.84rem}
+  .contact-sub a::after{content:"›";color:var(--green);font-weight:600}
+  .contact-sub a:hover{color:var(--green)}
+  .contact-note{font-size:.74rem;color:var(--muted);margin:.8rem 0 0}
 
   /* 特徴3枚 */
   .feats{display:grid;grid-template-columns:1fr 1fr 1fr;gap:.8rem;margin:1.2rem 0 0}
@@ -165,18 +166,14 @@
       </div>
     </div>
     <aside class="contact" aria-label="お知らせのメールを受け取った方へ">
-      <div class="contact-head">お知らせのメールを受け取った方へ</div>
-      <div class="contact-body">
-        <a class="contact-main" href="/about/">
-          <span><strong>はじめにお読みください</strong><span>「身に覚えがない」「怪しいのでは」と感じた方へ</span></span>
-          <span class="arrow">→</span>
-        </a>
-        <div class="contact-sub">
-          <a href="/how/">しくみと安全性を知る</a>
-          <a href="/how/#faq-recovery">よくあるご質問</a>
-        </div>
-        <p class="contact-note">開封・招待のお手続きは、お手元のメールに記載のリンクからお進みください。</p>
-      </div>
+      <p class="contact-head">お知らせのメールを<br>受け取った方へ</p>
+      <p class="contact-lead">「身に覚えがない」「怪しいのでは」と感じた方も、まずはこちらから。</p>
+      <a class="contact-main" href="/about/">はじめにお読みください</a>
+      <nav class="contact-sub" aria-label="受け取った方向けのご案内">
+        <a href="/how/">しくみと安全性を知る</a>
+        <a href="/how/#faq-recovery">よくあるご質問</a>
+      </nav>
+      <p class="contact-note">開封・招待のお手続きは、お手元のメールに記載のリンクからお進みください。</p>
     </aside>
   </section>
 
