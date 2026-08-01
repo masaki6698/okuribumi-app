@@ -17,6 +17,7 @@
     --sheet:#FFFDF8;--sheet-dk:#D9D3C5;
     --floor:#EAE6DC;--accent:var(--green);--bg:#FFFFFF;--tint:#ECF2EF;--shadow:0 1px 2px rgba(42,41,38,.04),0 10px 26px rgba(42,41,38,.06);
     --hair:#3A2E24; /* 人物の髪。肌色の上に乗るため両テーマ固定（--inkだとダークで白髪化する） */
+    --device:#2A2926; /* スマホ・金庫など「濃い物体」の本体色。--inkと違いダークでも濃いまま（白い塊化防止） */
   }
   @media(prefers-color-scheme:dark){:root{
     --paper:#1B1A17;--ink:#ECEAE4;--muted:#A19D93;--line:#3A3833;--card:#232219;
@@ -25,7 +26,7 @@
     --gold:#D3B24C;--gold-hi:#E5CB77;--gold-dk:#A3862F;
     --blue:#8FA6C4;--blue-dk:#66799A;
     --sheet:#EFEBE0;--sheet-dk:#B9B2A0;
-    --floor:#2C2B26;--bg:#161512;--tint:#222923;--shadow:0 1px 2px rgba(0,0,0,.3),0 10px 26px rgba(0,0,0,.25);
+    --floor:#2C2B26;--bg:#161512;--tint:#222923;--device:#403B34;--shadow:0 1px 2px rgba(0,0,0,.3),0 10px 26px rgba(0,0,0,.25);
   }}
   :root[data-theme="dark"]{
     --paper:#1B1A17;--ink:#ECEAE4;--muted:#A19D93;--line:#3A3833;--card:#232219;
@@ -34,7 +35,7 @@
     --gold:#D3B24C;--gold-hi:#E5CB77;--gold-dk:#A3862F;
     --blue:#8FA6C4;--blue-dk:#66799A;
     --sheet:#EFEBE0;--sheet-dk:#B9B2A0;
-    --floor:#2C2B26;--bg:#161512;--tint:#222923;--shadow:0 1px 2px rgba(0,0,0,.3),0 10px 26px rgba(0,0,0,.25);
+    --floor:#2C2B26;--bg:#161512;--tint:#222923;--device:#403B34;--shadow:0 1px 2px rgba(0,0,0,.3),0 10px 26px rgba(0,0,0,.25);
   }
   :root[data-theme="light"]{
     --paper:#F6F4EE;--ink:#2A2926;--muted:#77736A;--line:#E5E2DA;--card:#FFFFFF;
@@ -43,7 +44,7 @@
     --gold:#C9A227;--gold-hi:#E0BC4C;--gold-dk:#97771B;
     --blue:#5E7796;--blue-dk:#41546F;
     --sheet:#FFFDF8;--sheet-dk:#D9D3C5;
-    --floor:#EAE6DC;--bg:#FFFFFF;--tint:#ECF2EF;--shadow:0 1px 2px rgba(42,41,38,.04),0 10px 26px rgba(42,41,38,.06);
+    --floor:#EAE6DC;--bg:#FFFFFF;--tint:#ECF2EF;--device:#2A2926;--shadow:0 1px 2px rgba(42,41,38,.04),0 10px 26px rgba(42,41,38,.06);
   }
   *{box-sizing:border-box;margin:0}
   /* 日本語の行折りを文節単位に（BudouX）。非対応ブラウザでは無視され従来どおり。 */
@@ -214,14 +215,14 @@
       </g>
       <!-- スマホ（素体） -->
       <g id="i-phone">
-        <rect x="30" y="18" width="40" height="64" rx="8" fill="var(--ink)" opacity=".82" transform="translate(6,4)"/>
-        <rect x="30" y="18" width="40" height="64" rx="8" fill="var(--ink)"/>
+        <rect x="30" y="18" width="40" height="64" rx="8" fill="var(--device)" opacity=".82" transform="translate(6,4)"/>
+        <rect x="30" y="18" width="40" height="64" rx="8" fill="var(--device)"/>
         <rect x="34" y="24" width="32" height="52" rx="4" fill="var(--sheet)"/>
       </g>
       <!-- QRつきスマホ -->
       <g id="i-qr">
         <use href="#i-phone"/>
-        <g fill="var(--ink)">
+        <g fill="var(--device)">
           <rect x="38" y="30" width="9" height="9"/><rect x="53" y="30" width="9" height="9"/>
           <rect x="38" y="45" width="9" height="9"/>
           <rect x="40" y="32" width="5" height="5" fill="var(--sheet)"/>
@@ -281,8 +282,8 @@
       </g>
       <!-- 金庫（あずかり場所） -->
       <g id="i-vault">
-        <rect x="22" y="26" width="56" height="52" rx="8" fill="var(--ink)" opacity=".82" transform="translate(6,4)"/>
-        <rect x="22" y="26" width="56" height="52" rx="8" fill="var(--ink)"/>
+        <rect x="22" y="26" width="56" height="52" rx="8" fill="var(--device)" opacity=".82" transform="translate(6,4)"/>
+        <rect x="22" y="26" width="56" height="52" rx="8" fill="var(--device)"/>
         <rect x="28" y="32" width="44" height="40" rx="5" fill="none" stroke="var(--sheet)" stroke-width="2" opacity=".5"/>
         <circle cx="50" cy="52" r="12" fill="none" stroke="var(--sheet)" stroke-width="4"/>
         <path d="M50 44 l0 8 l6 4" stroke="var(--sheet)" stroke-width="4" fill="none" stroke-linecap="round"/>
