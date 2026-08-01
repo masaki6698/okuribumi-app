@@ -8,25 +8,91 @@
 <title>さいごの一通～贈り文～とは — サービスのご説明</title>
 <meta name="description" content="さいごの一通～贈り文～は、大切な方が選んだ相手へ、お預かりした言葉や情報をお届けするサービスです。メールを受け取った方向けのご説明。">
 <style>
-  :root{--bg:#FFFFFF;--paper:#F6F4EE;--ink:#2A2926;--muted:#77736A;--green:#2F6D5A;--line:#E5E2DA;--card:#FFFFFF}
-  @media(prefers-color-scheme:dark){:root{--bg:#161512;--paper:#161512;--ink:#ECEAE4;--muted:#A19D93;--green:#84B3A1;--line:#3A3833;--card:#232219}}
+  :root{
+    --paper:#F6F4EE;--ink:#2A2926;--muted:#77736A;--line:#E5E2DA;--card:#FFFFFF;
+    --green:#2F6D5A;--green-hi:#3E8571;--green-dk:#1E4A3C;
+    --terra:#AE5240;
+    --floor:#EAE6DC;--bg:#FFFFFF;--tint:#ECF2EF;
+    --shadow:0 1px 2px rgba(42,41,38,.04),0 10px 26px rgba(42,41,38,.06)
+  }
+  @media(prefers-color-scheme:dark){:root{
+    --paper:#1B1A17;--ink:#ECEAE4;--muted:#A19D93;--line:#3A3833;--card:#232219;
+    --green:#84B3A1;--green-hi:#9FC6B5;--green-dk:#547B6C;
+    --terra:#C08172;
+    --floor:#2C2B26;--bg:#161512;--tint:#222923;--shadow:0 1px 2px rgba(0,0,0,.3),0 10px 26px rgba(0,0,0,.25)
+  }}
+  :root[data-theme="dark"]{
+    --paper:#1B1A17;--ink:#ECEAE4;--muted:#A19D93;--line:#3A3833;--card:#232219;
+    --green:#84B3A1;--green-hi:#9FC6B5;--green-dk:#547B6C;
+    --terra:#C08172;
+    --floor:#2C2B26;--bg:#161512;--tint:#222923;--shadow:0 1px 2px rgba(0,0,0,.3),0 10px 26px rgba(0,0,0,.25)
+  }
+  :root[data-theme="light"]{
+    --paper:#F6F4EE;--ink:#2A2926;--muted:#77736A;--line:#E5E2DA;--card:#FFFFFF;
+    --green:#2F6D5A;--green-hi:#3E8571;--green-dk:#1E4A3C;
+    --terra:#AE5240;
+    --floor:#EAE6DC;--bg:#FFFFFF;--tint:#ECF2EF;--shadow:0 1px 2px rgba(42,41,38,.04),0 10px 26px rgba(42,41,38,.06)
+  }
   *{box-sizing:border-box;margin:0}
-  /* 日本語の行折りを文節単位に（BudouX）。非対応ブラウザでは無視され従来どおり。 */
-  p,li,dd,dt,figcaption{word-break:auto-phrase}
+  p,li,dd,dt,figcaption,summary{word-break:auto-phrase}
   body{background:var(--bg);color:var(--ink);line-height:1.9;
     font-family:"Hiragino Sans","Noto Sans JP",system-ui,sans-serif;padding:3rem 1.25rem 5rem}
-  main{max-width:40rem;margin:0 auto}
-  h1{font-family:"Hiragino Mincho ProN","Yu Mincho","Noto Serif JP",serif;font-weight:600;
-    font-size:1.85rem;letter-spacing:.04em;margin-bottom:.3rem}
+  main{max-width:42rem;margin:0 auto}
+  h1,h2{font-family:"Hiragino Mincho ProN","Yu Mincho","Noto Serif JP",serif;font-weight:600;text-wrap:balance}
+  h1{font-size:1.85rem;letter-spacing:.04em;margin-bottom:.3rem}
   h1 small{display:block;font-size:.82rem;font-weight:400;color:var(--muted);letter-spacing:.1em;margin-top:.3rem}
-  h2{font-family:"Hiragino Mincho ProN","Yu Mincho","Noto Serif JP",serif;font-weight:600;
-    font-size:1.3rem;line-height:1.5;margin:2.6rem 0 .7rem;padding-left:.65rem;border-left:4px solid var(--green)}
+  h2{font-size:1.3rem;letter-spacing:.03em;line-height:1.5;margin:3rem 0 1rem;padding-left:.65rem;border-left:4px solid var(--green)}
   p{margin:.5rem 0}
+  a{color:var(--green)}
   .lead{color:var(--muted);font-size:.95rem;margin:1rem 0 2rem}
-  .card{background:var(--card);border:1px solid var(--line);border-radius:14px;box-shadow:0 1px 2px rgba(42,41,38,.04),0 10px 26px rgba(42,41,38,.06);padding:1.2rem 1.4rem;margin:1rem 0}
+  .note{color:var(--muted);font-size:.86rem}
+  .card{background:var(--card);border:1px solid var(--line);border-radius:14px;
+    padding:1.2rem 1.4rem;margin:1rem 0;box-shadow:var(--shadow)}
   .card strong{color:var(--green)}
   ul{padding-left:1.2rem}li{margin:.3rem 0}
-  .note{color:var(--muted);font-size:.86rem}
+  .eyebrow{font-size:.72rem;letter-spacing:.28em;color:var(--green);font-weight:600;margin:0 0 .2rem}
+  .band{margin:3rem calc(50% - 50vw) 0;padding:2.6rem calc(50vw - 50%) 2.8rem}
+  .band-paper{background:var(--paper)}
+  .band-tint{background:var(--tint)}
+  .band>h2:first-child,.band>.eyebrow:first-child{margin-top:0}
+  .eyebrow+h2{margin-top:.1rem}
+
+  /* 注意ボックス（見出し=警告アイコン+強調色、本文=箇条書き） */
+  .attn{background:var(--paper);border:1px solid var(--line);border-radius:14px;
+    padding:1.2rem 1.4rem 1.1rem;margin:1rem 0;box-shadow:var(--shadow)}
+  .band-tint .attn,.band-paper .attn{background:var(--card)}
+  .attn-head{display:flex;gap:.55rem;align-items:flex-start;color:var(--terra);
+    font-weight:600;line-height:1.7;margin:0}
+  .attn-head svg{flex:none;width:1.2em;height:1.1em;margin-top:.4em}
+  .attn-list{list-style:none;padding:0;margin:.7rem 0 0}
+  .attn-list li{position:relative;padding-left:1.1em;font-size:.92rem;color:var(--muted);margin:.35rem 0}
+  .attn-list li::before{content:"・";position:absolute;left:0;color:var(--ink)}
+  .attn-list strong{color:var(--ink)}
+
+  /* ご確認の3ステップ */
+  .steps{list-style:none;padding:0;margin:1.2rem 0;display:grid;gap:.8rem}
+  .steps li{display:flex;gap:1rem;align-items:flex-start;background:var(--card);
+    border:1px solid var(--line);border-radius:14px;padding:1rem 1.2rem;box-shadow:var(--shadow)}
+  .stepno{flex:none;width:30px;height:30px;border-radius:50%;background:var(--green);color:#fff;
+    display:grid;place-items:center;font-weight:600;font-size:.9rem;
+    font-family:"Hiragino Mincho ProN","Yu Mincho",serif;margin-top:.2rem}
+  .steps h3{font-size:.98rem;margin:0 0 .15rem}
+  .steps p{font-size:.88rem;color:var(--muted);margin:0}
+
+  /* FAQ */
+  .faq{margin:1rem 0}
+  .faq details{background:var(--card);border:1px solid var(--line);border-radius:14px;
+    margin:.6rem 0;padding:0 1.2rem;box-shadow:var(--shadow)}
+  .faq summary{cursor:pointer;font-weight:600;padding:.9rem 0;list-style:none;
+    display:flex;gap:.5rem;align-items:baseline}
+  .faq summary::-webkit-details-marker{display:none}
+  .faq summary::before{content:"Q.";color:var(--terra);flex:none;
+    font-family:"Hiragino Mincho ProN","Yu Mincho",serif}
+  .faq summary::after{content:"＋";margin-left:auto;color:var(--muted);font-weight:400;flex:none}
+  .faq details[open] summary::after{content:"−"}
+  .faq details>p{margin:0 0 1rem;font-size:.92rem;color:var(--muted)}
+  .faq details>p strong{color:var(--ink)}
+
   footer{border-top:1px solid var(--line);margin-top:3rem;padding-top:1.4rem;color:var(--muted);font-size:.82rem}
 </style>
 </head>
@@ -39,21 +105,60 @@
     <p><strong>さいごの一通～贈り文～</strong>は、大切な方が「いつか渡したい言葉や情報」をあらかじめお預かりし、ご本人が選んだ相手へ、しかるべきときにお届けするサービスです。</p>
   </div>
 
+  <section class="band band-paper">
+  <p class="eyebrow">WHY</p>
   <h2>なぜあなたにメールが届いたのか</h2>
   <p>あなたは以前、ある方から<strong>「受け取る人（緊急連絡先）」として指定され、その際にあなた自身がご承諾（オプトイン）くださっています。</strong>ご本人の意思で登録された、正規のご連絡です。時間が経って覚えていらっしゃらないこともありますが、同意なくメールをお送りすることはありません。</p>
+  </section>
 
+  <section class="band band-tint">
+  <p class="eyebrow">SAFETY</p>
   <h2>安全のためにお約束していること</h2>
   <ul>
     <li>当サービスが<strong>メールやWebページで、パスワードやコードの入力を求めることは決してありません。</strong></li>
     <li>お預かりした内容は、預けた方の端末で暗号化されており、<strong>宛先に選ばれたご本人がアプリで開いたときだけ</strong>読めます。当社を含む第三者は読めません。</li>
     <li>受け取りやご確認は、必ず公式アプリの中で行います。メール本文に内容そのものは記載しません。</li>
   </ul>
+  <div class="attn">
+    <p class="attn-head"><svg viewBox="0 0 24 22" aria-hidden="true"><path d="M12 1.5 L23 20.5 H1 Z" fill="none" stroke="currentColor" stroke-width="2" stroke-linejoin="round"/><rect x="11" y="8" width="2" height="6" rx="1" fill="currentColor"/><circle cx="12" cy="17" r="1.3" fill="currentColor"/></svg>本物のメールかどうか、ここでお確かめください</p>
+    <ul class="attn-list">
+      <li>差出人は <strong>noreply@okuribumi.app</strong> です。それ以外のアドレスからお送りすることはありません。</li>
+      <li>メール内のリンク先は <strong>okuribumi.app（このサイト）と公式アプリのみ</strong>です。ほかのサイトへ誘導することはありません。</li>
+      <li>パスワード・確認コード・口座やカード番号の入力を、メールやWebで求めることは<strong>決してありません</strong>。</li>
+      <li>受け取る方に<strong>金銭のご請求をすることは一切ありません</strong>（受け取りは無料です）。</li>
+    </ul>
+    <p class="note" style="margin-top:.7rem">ひとつでも当てはまらないメールは当サービスを装った偽物の可能性があります。リンクを開かず破棄してください。</p>
+  </div>
+  </section>
 
-  <h2>ご確認の方法</h2>
-  <p>お手元のメールに記載のリンクを開くと、公式アプリでのご確認にご案内します。アプリが未導入の場合は、案内に従ってインストールのうえ、同じリンクをお開きください。</p>
+  <section class="band">
+  <p class="eyebrow">STEPS</p>
+  <h2>ご確認の方法 — 3つの手順</h2>
+  <ol class="steps">
+    <li><span class="stepno">1</span><div><h3>メールのリンクを開く</h3><p>お手元のメールに記載のリンクを、スマートフォンで開いてください。</p></div></li>
+    <li><span class="stepno">2</span><div><h3>公式アプリへ</h3><p>アプリが未導入の場合は、案内に従ってインストールのうえ、同じリンクをもう一度お開きください。</p></div></li>
+    <li><span class="stepno">3</span><div><h3>アプリの中でご対応</h3><p>ご承諾・開封などのお手続きは、すべて公式アプリの画面の中で完結します。</p></div></li>
+  </ol>
+  </section>
 
-  <h2>ご連絡を受け取りたくない場合</h2>
-  <p>受け取りを希望されない場合は、メール内のご案内から手続きいただけます。無理にご対応いただく必要はありません。</p>
+  <section class="band band-paper">
+  <p class="eyebrow">Q&amp;A</p>
+  <h2>よくあるご質問</h2>
+  <div class="faq">
+    <details>
+      <summary>対応しないと、どうなりますか？</summary>
+      <p><strong>無理にご対応いただく必要はありません。</strong>受け取りを希望されない場合は、メール内のご案内からいつでも受け取りの停止（オプトアウト）ができます。停止後に何度もお送りし続けることはありません。</p>
+    </details>
+    <details>
+      <summary>お金はかかりますか？</summary>
+      <p><strong>受け取る方に費用は一切かかりません。</strong>ご請求をすることもありません。</p>
+    </details>
+    <details>
+      <summary>開封すると、誰かに知られますか？</summary>
+      <p>開封の事実は「開封が記録されました」として、ほかの受け取る人と、遺された方の記録にもお知らせされます。ただし<strong>誰が開封したかは記載されません</strong>。内容を読めるのは、宛先に選ばれたご本人だけです。くわしくは<a href="/how/">しくみのページ</a>をご覧ください。</p>
+    </details>
+  </div>
+  </section>
 
   <h2>もっとくわしく</h2>
   <p>鍵がどこで生まれて、どこにあるのか — <a href="/how/">しくみのページ</a>でご覧いただけます。</p>
