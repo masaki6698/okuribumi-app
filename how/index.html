@@ -5,8 +5,8 @@
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <link rel="icon" type="image/svg+xml" href="/favicon.svg">
 
-<title>しくみ（図解） — さいごの一通（贈り文）</title>
-<meta name="description" content="さいごの一通（贈り文）のしくみを図解で。言葉を預けてから、受け取る人の端末で開封されるまで — 鍵がどこで生まれ、どこにあるのかをご説明します。">
+<title>「さいごの一通～贈り文～」のしくみ</title>
+<meta name="description" content="さいごの一通～贈り文～のしくみを図解で。言葉を預けてから、受け取る人の端末で開封されるまで — 鍵がどこで生まれ、どこにあるのかをご説明します。">
 <style>
   :root{
     --paper:#F6F4EE;--ink:#2A2926;--muted:#77736A;--line:#E5E2DA;--card:#FFFFFF;
@@ -152,7 +152,7 @@
 </head>
 <body>
 <main>
-  <h1>しくみ（図解）<small>OKURIBUMI — さいごの一通（贈り文）</small></h1>
+  <h1>「さいごの一通～贈り文～」のしくみ<small>OKURIBUMI</small></h1>
   <p class="lead">言葉を預けてから、受け取る人の手もとで開封されるまで。<strong>鍵がどこで生まれて、どこにあるのか</strong>がこのサービスの芯です。図でご覧ください。</p>
 
   <!-- ============ SVG 部品定義（2.5D風アイコン） ============ -->
@@ -411,6 +411,31 @@
   <p class="eyebrow">TECHNICAL</p>
   <h2>技術のはなし — 詳しい方へ</h2>
   <p>ここまでのご説明を、暗号技術の言葉でそのまま申し上げます。新しい暗号を発明せず、広く検証された方式だけを組み合わせています。</p>
+  <figure class="scene reveal">
+    <svg viewBox="0 0 440 200" role="img" aria-label="技術的な流れ: 遺す人の端末で暗号化された手紙は、暗号文のままあずかり金庫に保管され、開示ゲートを通過したときだけ受け取る人の端末で開封される">
+      <ellipse cx="220" cy="150" rx="206" ry="16" fill="var(--floor)"/>
+      <g transform="translate(35,90) scale(.7)"><use href="#i-letter"/></g>
+      <g transform="translate(185,90) scale(.7)"><use href="#i-vault"/></g>
+      <g transform="translate(335,90) scale(.7)"><use href="#i-keyphone"/></g>
+      <g stroke="var(--green)" stroke-width="2.5" fill="none">
+        <path d="M110 128 H180"/>
+        <path d="M180 128 l-8 -4 m8 4 l-8 4" stroke-linecap="round"/>
+      </g>
+      <g stroke="var(--terra)" stroke-width="2.5" fill="none">
+        <path d="M260 128 H330" stroke-dasharray="5 5"/>
+        <path d="M330 128 l-8 -4 m8 4 l-8 4" stroke-linecap="round"/>
+      </g>
+      <text x="145" y="116" text-anchor="middle" font-size="11" fill="var(--green)">暗号文のみ</text>
+      <text x="295" y="116" text-anchor="middle" font-size="11" fill="var(--terra)">ゲート通過後のみ</text>
+      <text x="70" y="176" text-anchor="middle" font-size="12" font-weight="600" fill="var(--ink)">遺す人の端末</text>
+      <text x="70" y="192" text-anchor="middle" font-size="9.5" fill="var(--muted)">XChaCha20-Poly1305で封緘</text>
+      <text x="220" y="176" text-anchor="middle" font-size="12" font-weight="600" fill="var(--ink)">あずかり金庫</text>
+      <text x="220" y="192" text-anchor="middle" font-size="9.5" fill="var(--muted)">暗号文と封緘済みの鍵のみ</text>
+      <text x="370" y="176" text-anchor="middle" font-size="12" font-weight="600" fill="var(--ink)">受け取る人の端末</text>
+      <text x="370" y="192" text-anchor="middle" font-size="9.5" fill="var(--muted)">X25519 sealed boxを開封</text>
+    </svg>
+    <figcaption class="note">平文が存在するのは両端の端末の中だけ。あいだのどこにも、開いた手紙は流れません。</figcaption>
+  </figure>
   <div class="faq">
     <details>
       <summary>どんな暗号方式を使っていますか？</summary>
@@ -606,7 +631,7 @@
   <p><a href="/about/">サービスのご説明はこちら</a></p>
 
   <footer>
-    <p>さいごの一通（贈り文）／ okuribumi.app<br>
+    <p>さいごの一通～贈り文～／ okuribumi.app<br>
     当サービスが、メールやWebページでパスワードやコードの入力をお願いすることはありません。</p>
   </footer>
 </main>
