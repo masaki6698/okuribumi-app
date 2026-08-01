@@ -177,12 +177,13 @@
   .intro.on{display:block;animation:introFade 2.2s ease forwards}
   .intro-bg{position:absolute;inset:0;background:url('/assets/kaku.jpg') center/cover no-repeat;
     animation:introZoom 2.2s ease forwards}
-  .intro-bg::after{content:"";position:absolute;inset:0;background:rgba(246,244,238,.32)}
-  .intro-copy{position:absolute;inset:0;display:flex;align-items:center;justify-content:center;
-    padding:0 2rem;text-align:center;
+  .intro-bg::after{content:"";position:absolute;inset:0;
+    background:linear-gradient(100deg, rgba(24,36,31,.58) 0%, rgba(24,36,31,.3) 42%, rgba(24,36,31,.04) 68%)}
+  .intro-copy{position:absolute;inset:0;display:flex;align-items:center;justify-content:flex-start;
+    padding:0 8vw;text-align:left;
     font-family:"Hiragino Mincho ProN","Yu Mincho","Noto Serif JP",serif;font-weight:600;
-    font-size:1.45rem;letter-spacing:.14em;line-height:2;color:#1E4A3C;
-    text-shadow:0 1px 14px rgba(246,244,238,.95),0 0 40px rgba(246,244,238,.8);
+    font-size:1.5rem;letter-spacing:.14em;line-height:2;color:#FFFDF8;
+    text-shadow:0 2px 18px rgba(16,22,19,.65),0 0 3px rgba(16,22,19,.5);
     opacity:0;animation:introCopy 2.2s ease forwards}
   @keyframes introFade{0%,62%{opacity:1}100%{opacity:0}}
   @keyframes introZoom{0%{transform:scale(1.06)}100%{transform:scale(1)}}
