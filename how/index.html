@@ -135,6 +135,10 @@
   .uses figcaption{font-size:.82rem;line-height:1.7;margin-top:.4rem}
   .uses .use-note{display:block;color:var(--muted);font-size:.74rem}
   @media(max-width:520px){.uses{grid-template-columns:1fr}}
+  /* 実写フォトカード（節内の挿し絵） */
+  .photo-card{margin:1.4rem auto 0;max-width:34rem}
+  .photo-card img{width:100%;display:block;border-radius:14px;border:1px solid var(--line);box-shadow:var(--shadow)}
+  .photo-card figcaption{font-size:.82rem;color:var(--muted);text-align:center;margin-top:.5rem}
   /* 日常写真バンド（実写+コピー重ね。文字色は写真前提の固定値=テーマ非依存） */
   .photo-band{margin:3rem calc(50% - 50vw) 0;position:relative;min-height:380px;
     display:flex;align-items:center;
@@ -463,6 +467,11 @@
     </li>
   </ol>
 
+  <figure class="photo-card reveal">
+    <img src="/assets/nagaoshi.jpg" alt="親指で緑の丸ボタンを長押しする様子" loading="lazy">
+    <figcaption>チェックインは、ボタンをそっと長押しするだけ。</figcaption>
+  </figure>
+
   </section>
 
   <section class="band band-tint">
@@ -508,6 +517,11 @@
     <p class="note"><strong>開封には「ふたつ」が必要です</strong> — もしものときにメールで届く開示コード（封筒の受け取り券）と、承諾した端末の中の鍵。<strong>この両方がそろってはじめて開封できます</strong>。メールを万一のぞき見されても、そこにあるのは受け取り券だけ。開封の鍵は受け取る人の端末にしかないため、中身は守られます。</p>
     <p class="note"><strong>端末をなくしても、手紙は失われません</strong> — 失われるのは鍵だけで、手紙そのものは封をしたまま金庫に残っています。鍵は、遺す人がご存命の間なら招待のし直しで、万一の後でも「再登録の申請」で作り直せます（<a href="#faq-recovery">よくあるご質問</a>をご覧ください）。</p>
   </div>
+
+  <figure class="photo-card reveal">
+    <img src="/assets/kinko.jpg" alt="スマートフォンの画面で施錠された封筒の錠前が光る様子" loading="lazy">
+    <figcaption>あずかり金庫は、開けられません。お預かりするのは封をした暗号文だけ。</figcaption>
+  </figure>
 
   </section>
 
@@ -640,6 +654,11 @@
   <div class="card">
     <p class="note">銀行口座や保険は、<strong>存在と場所さえ伝われば</strong>、遺されたご家族が相続の正規の手続きでお受け取りいただけます。暗証番号やパスワードを書き残す必要はありません。</p>
   </div>
+
+  <figure class="photo-card reveal">
+    <img src="/assets/arika.jpg" alt="通帳と小さな鍵を、封筒の入った引き出しへしまう手元" loading="lazy">
+    <figcaption>大切なもののありかを、伝える。それだけで、遺されたご家族は前に進めます。</figcaption>
+  </figure>
   </section>
 
   <section class="band band-tint">
@@ -742,6 +761,7 @@
   <p><a href="/">トップページ</a> ／ <a href="/about/">サービスのご説明</a></p>
 
   <footer>
+    <p style="margin-bottom:.5rem"><a href="/legal/terms/">利用規約</a> ／ <a href="/legal/privacy/">プライバシーポリシー</a> ／ <a href="/legal/tokushoho/">特定商取引法に基づく表記</a></p>
     <p>さいごの一通 ～贈り文～／ okuribumi.app<br>
     当サービスが、メールやWebページでパスワードやコードの入力をお願いすることはありません。</p>
   </footer>
