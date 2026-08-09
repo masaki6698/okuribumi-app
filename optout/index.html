@@ -1,0 +1,114 @@
+<!doctype html>
+<html lang="ja">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="icon" type="image/svg+xml" href="/favicon.svg">
+
+<meta name="robots" content="noindex">
+<meta name="referrer" content="no-referrer">
+<title>今後の連絡を停止する — さいごの一通 ～贈り文～</title>
+<meta name="description" content="さいごの一通 ～贈り文～— 今後この件についてのご連絡を停止する手続きのページです。">
+<style>
+  :root{--bg:#FFFFFF;--paper:#F6F4EE;--ink:#2A2926;--muted:#77736A;--green:#31798A;--line:#E5E2DA;--card:#FFFFFF}
+  @media(prefers-color-scheme:dark){:root{--bg:#161512;--paper:#161512;--ink:#ECEAE4;--muted:#A19D93;--green:#7FC0CE;--line:#3A3833;--card:#232219}}
+  *{box-sizing:border-box;margin:0}
+  /* 日本語の行折りを文節単位に（BudouX）。非対応ブラウザでは無視され従来どおり。 */
+  p,li,dd,dt,figcaption{word-break:auto-phrase}
+  body{background:var(--bg);color:var(--ink);line-height:1.9;
+    font-family:"Hiragino Sans","Noto Sans JP",system-ui,sans-serif;padding:3rem 1.25rem 5rem}
+  main{max-width:40rem;margin:0 auto}
+  h1{font-family:"Hiragino Mincho ProN","Yu Mincho","Noto Serif JP",serif;font-weight:600;
+    font-size:1.85rem;letter-spacing:.04em;margin-bottom:.3rem}
+  h1 small{display:block;font-size:.82rem;font-weight:400;color:var(--muted);letter-spacing:.1em;margin-top:.3rem}
+  h2{font-family:"Hiragino Mincho ProN","Yu Mincho","Noto Serif JP",serif;font-weight:600;
+    font-size:1.3rem;line-height:1.5;margin:2.6rem 0 .7rem;padding-left:.65rem;border-left:4px solid var(--green)}
+  p{margin:.5rem 0}
+  a{color:var(--green)}
+  .lead{color:var(--muted);font-size:.95rem;margin:1rem 0 2rem}
+  .card{background:var(--card);border:1px solid var(--line);border-radius:14px;box-shadow:0 1px 2px rgba(42,41,38,.04),0 10px 26px rgba(42,41,38,.06);padding:1.2rem 1.4rem;margin:1rem 0}
+  .card strong{color:var(--green)}
+  ul{padding-left:1.2rem}li{margin:.3rem 0}
+  ol.steps{padding-left:1.2rem}
+  ol.steps li{margin:.7rem 0}
+  .note{color:var(--muted);font-size:.86rem}
+  .btn{display:inline-block;width:100%;text-align:center;background:var(--green);color:#fff;
+    border:none;border-radius:10px;padding:.85rem 1rem;font-size:.98rem;font-weight:600;
+    text-decoration:none;cursor:pointer;box-sizing:border-box}
+  .btn:active{opacity:.85}
+  .btn-outline{display:inline-block;width:100%;text-align:center;background:transparent;color:var(--green);
+    border:1px solid var(--green);border-radius:10px;padding:.75rem 1rem;font-size:.92rem;font-weight:600;
+    text-decoration:none;cursor:pointer;box-sizing:border-box;margin-top:.6rem}
+  .btn-outline:active{opacity:.8}
+  code.token{display:block;font-family:ui-monospace,SFMono-Regular,Menlo,Consolas,monospace;
+    font-size:.82rem;word-break:break-all;white-space:pre-wrap;background:#FFFFFF;
+    border:1px solid var(--line);border-radius:8px;padding:.8rem .9rem;margin:.7rem 0;color:var(--ink);
+    user-select:all}
+  .copy-status{font-size:.82rem;color:var(--green);min-height:1.2em;margin-top:.4rem}
+  #generic-guidance{display:none}
+  footer{border-top:1px solid var(--line);margin-top:3rem;padding-top:1.4rem;color:var(--muted);font-size:.82rem}
+</style>
+</head>
+<body>
+<main>
+  <h1>今後の連絡を停止する<small>さいごの一通 ～贈り文～</small></h1>
+  <p class="lead">この件について、今後メールをお送りしないようにします。</p>
+
+  <div class="card" id="main-card">
+    <p>下のボタンを押すと、<strong>この件に関する今後のご連絡を停止</strong>します。</p><p class="note">すでにお受け取りになった内容が消えることはありません。また、他の方への連絡には影響しません。</p>
+    <p style="margin-top:1.2rem"><button class="btn" id="act-btn" type="button">今後の連絡を停止する</button></p>
+    <p class="note" id="status" role="status" aria-live="polite"></p>
+  </div>
+
+  <div class="card" id="result-card" hidden>
+    <p id="result-text" style="white-space:pre-wrap"></p>
+  </div>
+
+  <p class="note">このページを開いただけでは、何も変わりません。ボタンを押したときにだけ手続きが行われます。</p>
+  <p><a href="/about/">サービスのご説明</a>をご覧ください。</p>
+</main>
+<script>
+(function(){
+  // 【重要】ページ表示時に自動で実行しないこと。
+  // メールのスキャナ(SafeLinks 等)が自動でこのページを開くため、表示だけで状態が
+  // 変わる作りにすると、誰も押していないのに処理が進む。必ず利用者の操作を起点にする。
+  var params = new URLSearchParams(window.location.search);
+  var token = params.get("token");
+  var btn = document.getElementById("act-btn");
+  var status = document.getElementById("status");
+  var card = document.getElementById("main-card");
+  var resultCard = document.getElementById("result-card");
+  var resultText = document.getElementById("result-text");
+
+  if (!token) {
+    card.hidden = true;
+    resultCard.hidden = false;
+    resultText.textContent = "リンクが正しくありません。メールに記載のリンクをもう一度お開きください。";
+    return;
+  }
+
+  var busy = false;
+  btn.addEventListener("click", function(){
+    if (busy) return;
+    
+    busy = true;
+    btn.disabled = true;
+    status.textContent = "送信しています…";
+    fetch("https://bajytsajlvqxhoxclexy.supabase.co/functions/v1/delivery-optout?action=optout&confirm=yes&token=" + encodeURIComponent(token), { method: "GET" })
+      .then(function(res){ return res.text().then(function(t){ return { ok: res.ok, text: t }; }); })
+      .then(function(r){
+        if (!r.ok) throw new Error("http");
+        card.hidden = true;
+        resultCard.hidden = false;
+        resultText.textContent = r.text;
+      })
+      .catch(function(){
+        busy = false;
+        btn.disabled = false;
+        status.textContent = "うまく送信できませんでした。時間をおいて、もう一度お試しください。";
+      });
+  });
+})();
+</script>
+</body>
+</html>

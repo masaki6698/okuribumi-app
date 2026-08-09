@@ -80,6 +80,10 @@
     <p class="note">アプリのログイン画面下部にある「招待に応える」を開き、「招待コード」欄に下記のコードを貼り付けてください。</p>
     <code class="token" id="token-display"></code>
     <button class="btn-outline" id="copy-btn" type="button">コードをコピー</button>
+    <p style="margin-top:1.6rem" class="note">お引き受けが難しい場合は、こちらから辞退できます。
+    辞退されたことは、ご本人にお知らせします。</p>
+    <p><button class="btn-outline" id="decline-btn" type="button">辞退する</button></p>
+    <p class="note" id="decline-status" role="status" aria-live="polite"></p>
     <p class="copy-status" id="copy-status" aria-live="polite"></p>
   </div>
 
@@ -143,6 +147,34 @@
     });
   } else {
     genericGuidance.style.display = "";
+  }
+
+  // 辞退。【重要】ページ表示時に自動実行しないこと（メールのスキャナが自動で開くため）。
+  // 承諾はアプリのみ。Webで承諾できるようにすると、鍵が作られないまま承諾状態になり、
+  // 死後の開示が恒久的に失敗する。
+  var declineBtn = document.getElementById("decline-btn");
+  var declineStatus = document.getElementById("decline-status");
+  if (declineBtn && token) {
+    var declining = false;
+    declineBtn.addEventListener("click", function(){
+      if (declining) return;
+      if (!window.confirm("この招待を辞退します。よろしいですか。")) return;
+      declining = true;
+      declineBtn.disabled = true;
+      declineStatus.textContent = "送信しています…";
+      fetch("https://bajytsajlvqxhoxclexy.supabase.co/functions/v1/contact-invite?action=decline&confirm=yes&token=" + encodeURIComponent(token), { method: "GET" })
+        .then(function(res){ return res.text().then(function(t){ return { ok: res.ok, text: t }; }); })
+        .then(function(r){
+          if (!r.ok) throw new Error("http");
+          declineStatus.textContent = r.text;
+          declineBtn.hidden = true;
+        })
+        .catch(function(){
+          declining = false;
+          declineBtn.disabled = false;
+          declineStatus.textContent = "うまく送信できませんでした。時間をおいて、もう一度お試しください。";
+        });
+    });
   }
 })();
 </script>
